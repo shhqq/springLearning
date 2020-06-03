@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--以上为spring配置文件的固定格式-->
+
+    <!-- 把创建对象的工作交给spring管理 -->
+    <bean id="accountService" class="com.factoryDemo.factoryTest.service.impl.AccountServiceImpl"/>
+    <bean id="accountDao" class="com.factoryDemo.factoryTest.dao.impl.AccountDaoImpl" />
+</beans>
