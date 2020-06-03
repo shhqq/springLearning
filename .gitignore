@@ -47,6 +47,10 @@ hs_err_pid*
 /day01_springDemo_02/src/test
 /day01_springDemo_02/target/
 
+/day01_springDemo_03_DI/.idea/
+/day01_springDemo_03_DI/out/
+/day01_springDemo_03_DI/src/test
+/day01_springDemo_03_DI/target/
 
 # macOS
 .DS_Store

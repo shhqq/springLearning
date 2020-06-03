@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- spring 中的依赖注入 dependency injection
+
+    -->
+    <!-- 如果没有默认构造函数，单独使用下一行会报错，无法找到默认构造函数-->
+    <bean id="accountService" class="com.factoryDemo.factoryTest.service.impl.AccountServiceImpl">
+        <constructor-arg name="name" value="特斯拉"></constructor-arg>
+        <constructor-arg name="age" value="20"></constructor-arg>
+        <constructor-arg name="birthday" ref="now"></constructor-arg>
+    </bean>
+    <bean id="now" class="java.util.Date"></bean>
+</beans>
