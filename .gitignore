@@ -28,8 +28,14 @@ hs_err_pid*
 
 # About IntelliJ
 *.iml
+
 /day01_jdbcDemo/.idea/
 /day01_jdbcDemo/out/
+
+/day01_factoryDemo/.idea/
+/day01_factoryDemo/out/
+/day01_factoryDemo/src/test/
+/day01_factoryDemo/target/
 
 # macOS
 .DS_Store
