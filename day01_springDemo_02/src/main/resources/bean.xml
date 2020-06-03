@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--
+        spring 对bean的管理细节：
+            1. 创建bean的三种方式；
+            2. bean对象的作用范围；
+            3. bean对象的生命周期；
+     -->
+<!--    <bean id="accountService" class="com.factoryDemo.factoryTest.service.impl.AccountServiceImpl"/>-->
+<!--    <bean id="instanceFactory" class="com.factoryDemo.factoryTest.factory.InstanceFactory"/>-->
+<!--    <bean id="accountService" factory-bean="instanceFactory" factory-method="getAccountService"/>-->
+
+    <bean id="accountService" class="com.factoryDemo.factoryTest.factory.StaticFactory" factory-method="getAccountService"/>
+</beans>

@@ -4,14 +4,9 @@ package com.factoryDemo.factoryTest.ui;
  * Created by s on 2020/6/3 09:54.
  */
 
-import com.factoryDemo.factoryTest.dao.IAccountDao;
 import com.factoryDemo.factoryTest.service.IAccountService;
-import org.springframework.beans.factory.BeanFactory;
-import org.springframework.beans.factory.xml.XmlBeanFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.Resource;
 
 /**
  * 表现层
@@ -29,19 +24,16 @@ public class Client {
 
         // 1. 获取核心容器对象
         ApplicationContext ac = new ClassPathXmlApplicationContext("bean.xml");
+        ApplicationContext ac2 = new ClassPathXmlApplicationContext("bean.xml");
+        System.out.println(ac.equals(ac2));      // false，会创建多个bean对象
+
         // 2. 根据id获取Bean对象
         IAccountService as = (IAccountService) ac.getBean("accountService");
-        // 使用带两个参数的getBean方法会返回指定的类对象。
-        IAccountDao aDao = ac.getBean("accountDao", IAccountDao.class);
+        IAccountService a2 = (IAccountService) ac.getBean("accountService");
+        System.out.println(as == a2);       // true 说明bean一般是单例的
 
         // 3. 调用业务层对象的方法
         as.saveAccount();
 
-
-        /*
-        // 使用BeanFactory获取核心容器对象
-        Resource resource = new ClassPathResource("bean.xml");
-        BeanFactory bf = new XmlBeanFactory(resource);
-         */
     }
 }
