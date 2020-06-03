@@ -20,9 +20,11 @@ public class Client {
         // 改为使用工厂模式获取对象
         // 由于返回的是Object，因此需要类型转换.
         // 为什么可以用接口强转？不就没有用到接口的实现了吗？由于反射获取对象时是具体类，因此可以转为接口，改为实现类也可以
-        IAccountService as = (IAccountService) BeanFactory.getBean("accountService");
-
-        // 调用业务层对象的方法
-        as.saveAccount();
+        for(int i = 0; i < 5; i++){
+            IAccountService as = (IAccountService) BeanFactory.getBean("accountService");
+            System.out.println(as); // 将BeanFactory生成对象放到Map中，这样as对象始终是一个。
+            // 调用业务层对象的方法
+            as.saveAccount();
+        }
     }
 }

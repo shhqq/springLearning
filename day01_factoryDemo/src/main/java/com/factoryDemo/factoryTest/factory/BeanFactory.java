@@ -6,6 +6,9 @@ package com.factoryDemo.factoryTest.factory;
 
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 
 /**
@@ -28,6 +31,9 @@ public class BeanFactory {
     // 定义一个Properties对象，保存配置
     private static Properties props;
 
+    // 定义一个容器，用于存放要创建的对象
+    private static Map<String, Object> beanMap;
+
     // 使用静态代码块为Properties对象赋值
     static {
         try{
@@ -40,6 +46,20 @@ public class BeanFactory {
 
             InputStream in = BeanFactory.class.getClassLoader().getResourceAsStream("bean.properties");
             props.load(in);
+
+            // 将配置保存到beanMap中
+            // 1. 实例化HashMap对象
+            beanMap = new HashMap<>();
+            // 2. 获取所有配置
+            Enumeration<Object> keys = props.keys();
+            // 3. 遍历配置，存储对象
+            while(keys.hasMoreElements()){
+                String beanName = keys.nextElement().toString();
+                // 4. 获取一个对象
+                Object o = Class.forName(props.getProperty(beanName)).getConstructor().newInstance();
+                // 5. 存储对象
+                beanMap.put(beanName, o);
+            }
         } catch (Exception e){
             e.printStackTrace();
             // 抛一个错误，该错误会直接退出程序，因为配置失败后，后续都无法执行。
@@ -47,6 +67,23 @@ public class BeanFactory {
         }
     }
 
+    /**
+     * 改写getBean方法，直接返回beanMap中的元素
+     * @param beanName  类名
+     * @return  类的对象
+     */
+    public static Object getBean(String beanName){
+        return beanMap.get(beanName);
+    }
+
+    /**
+     * 根据类名获取对象
+     * 由于在该方法中使用newInstance()获取对象，因此每调用该方法，就会产生一个对对象。
+     * 造成资源浪费。
+     * @param beanName 类名
+     * @return  类的对象
+     */
+    /*
     public static Object getBean(String beanName){
         Object bean = null;
         try {
@@ -59,4 +96,6 @@ public class BeanFactory {
         }
         return bean;
     }
+
+     */
 }
