@@ -21,3 +21,54 @@
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+
+# 以上是github初始化生成的
+
+# Built application files and Maven
+
+# About IntelliJ
+*.iml
+/day01_jdbcDemo/.idea/
+/day01_jdbcDemo/out/
+
+# macOS
+.DS_Store
+
+
+# CMake
+
+cmake-build-debug/
+ # File-based project format
+
+*.iws
+
+
+
+# mpeltonen/sbt-idea plugin
+
+.idea_modules/
+ 
+
+# JIRA plugin
+
+atlassian-ide-plugin.xml
+ 
+
+
+# Crashlytics plugin (for Android Studio and IntelliJ)
+
+com_crashlytics_export_strings.xml
+
+crashlytics.properties
+
+crashlytics-build.properties
+
+fabric.properties
+
+
+.settings
+.vscode
+.classpath
+.project
+
+
