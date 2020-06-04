@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- spring 中的依赖注入 dependency injection
+
+    -->
+    <!-- 如果没有默认构造函数，单独使用下一行会报错，无法找到默认构造函数-->
+    <bean id="accountService" class="com.factoryDemo.factoryTest.service.impl.AccountServiceImpl">
+        <!-- 基本数据类型及引用bean -->
+        <property name="name" value="特斯拉"/>
+        <property name="age" value="23"/>
+        <property name="birthday" ref="now"/>
+
+        <!--复合类型的set注入方式-->
+        <property name="myArray">
+            <array>
+                <value>23</value>
+                <value>45</value>
+            </array>
+        </property>
+        <property name="myList">
+            <list>
+                <value>aaa</value>
+                <value>bbb</value>
+            </list>
+        </property>
+        <property name="mySet">
+            <set>
+                <value>ccc</value>
+                <value>ddd</value>
+            </set>
+        </property>
+
+        <property name="myMap">
+            <map>
+                <!-- map的两种方式 第二种简洁-->
+                <entry key="Jack">
+                    <value>beijing</value>
+                </entry>
+                <entry key="Mick" value="nanjing"/>
+            </map>
+        </property>
+
+        <property name="myProps">
+            <props>
+                <prop key="name1">Jack</prop>
+                <prop key="name2">Mike</prop>
+            </props>
+        </property>
+    </bean>
+    <bean id="now" class="java.util.Date"/>
+</beans>
