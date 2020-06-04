@@ -63,6 +63,11 @@ hs_err_pid*
 /day01_springDemo_04_DI_set/src/test
 /day01_springDemo_04_DI_set/target/
 
+# spring使用注解的方式
+/day02_springAnnotation_01_Basic/.idea/
+/day02_springAnnotation_01_Basic/out/
+/day02_springAnnotation_01_Basic/src/test
+/day02_springAnnotation_01_Basic/target/
 
 # macOS
 .DS_Store
