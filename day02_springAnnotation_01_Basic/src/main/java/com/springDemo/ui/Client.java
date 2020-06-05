@@ -25,10 +25,12 @@ public class Client {
      */
     public static void main(String[] args) {
 
-        ApplicationContext ac = new ClassPathXmlApplicationContext("bean.xml");
+//        ApplicationContext ac = new ClassPathXmlApplicationContext("bean.xml");
+        // 改为实现类，因为ApplicationContext没有close方法。
+        ClassPathXmlApplicationContext ac = new ClassPathXmlApplicationContext("bean.xml");
 
         // 使用spring注解的方式，spring容器中生成了对象
-        IAccountService as = (IAccountService) ac.getBean("accountServiceImpl");
+        IAccountService as = (AccountServiceImpl) ac.getBean("accountServiceImpl");
         System.out.println(as);
 
 //        IAccountDao aDao = ac.getBean("accountDao", IAccountDao.class);
@@ -36,5 +38,7 @@ public class Client {
 
         as.saveAccount();
 
+        // 关闭容器，演示as对象的销毁方法
+        ac.close();
     }
 }
