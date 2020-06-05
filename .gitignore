@@ -69,6 +69,10 @@ hs_err_pid*
 /day02_springAnnotation_01_Basic/src/test
 /day02_springAnnotation_01_Basic/target/
 
+# 忽略所有项目下的.idea文件夹
+/*/.idea/
+/*/target/
+
 # macOS
 .DS_Store
 
