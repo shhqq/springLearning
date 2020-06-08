@@ -36,10 +36,18 @@ import java.beans.PropertyVetoException;
  *              当使用Import注解时，包含Import的配置类为父配置类，导入的都是子配置类。
  *              当使用Import注解时，子配置类不需要Configuration注解，也不需要加入ComponentScan参数中，也不需要加入
  *                  AnnotationConfigApplicationContext参数中。
+ *      将jdbcConfig.java中的数据库连接信息改写为配置文件
+ *          使用新的注解
+ *              PropertySource
+ *                  作用：用于指定properties文件的位置
+ *                  属性：
+ *                      value: 指定文件的名称和路径
+ *                          使用classpath关键字表示类路径下。
  */
 //@Configuration
 @ComponentScan({"com.springLearn"})    // value是一个string数组，当只有一个值时，{}可以省略，只有value时，value可以省略
 @Import(JdbcConfig.class)
+@PropertySource("classpath:jdbcConfig.properties")  // classpath关键字表示是类路径。
 public class SpringConfiguration {
 
 }
