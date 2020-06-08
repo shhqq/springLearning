@@ -44,42 +44,7 @@ public class AccountServiceTest {
     }
 
     @Test
-    public void testFindOne() {
-//        ApplicationContext ac = new ClassPathXmlApplicationContext("bean.xml");
-//        IAccountService as = (IAccountService) ac.getBean("accountService");
-        Account account = as.findAccountById(1);
-        System.out.println(account);
-    }
-
-    @Test
-    public void testSave() {
-
-//        ApplicationContext ac = new ClassPathXmlApplicationContext("bean.xml");
-//        IAccountService as = (IAccountService) ac.getBean("accountService");
-        // 新建Account对象
-        Account account = new Account();
-        account.setName("ddd");
-        account.setMoney(1800F);
-
-        // 保存数据
-        as.saveAccount(account);
-    }
-
-    @Test
-    public void testUpdate() {
-//        ApplicationContext ac = new ClassPathXmlApplicationContext("bean.xml");
-//        IAccountService as = (IAccountService) ac.getBean("accountService");
-
-        Account account = as.findAccountById(1);
-        account.setMoney(3000F);
-
-        as.updateAccount(account);
-    }
-
-    @Test
-    public void testDelete() {
-//        ApplicationContext ac = new ClassPathXmlApplicationContext("bean.xml");
-//        IAccountService as = (IAccountService) ac.getBean("accountService");
-        as.deleteAccount(4);
+    public void testTransfer(){
+        as.transfer("aaa", "bbb", 200F);
     }
 }

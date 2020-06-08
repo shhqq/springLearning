@@ -42,4 +42,12 @@ public interface IAccountService {
      * @param account
      */
     void updateAccount(Account account);
+
+    /**
+     * 转账
+     * @param sourceName source name
+     * @param targetName target name
+     * @param money money to transfer
+     */
+    void transfer(String sourceName, String targetName, Float money);
 }

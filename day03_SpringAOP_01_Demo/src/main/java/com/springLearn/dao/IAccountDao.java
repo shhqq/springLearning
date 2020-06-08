@@ -42,4 +42,13 @@ public interface IAccountDao {
      * @param account
      */
     void updateAccount(Account account);
+
+    /**
+     * 根据名称查找用户
+     * 若不存在或出问题，则返回null
+     * 若查询结果多余一个，则抛异常
+     * @param accountName
+     * @return
+     */
+    Account findAccountByName(String accountName);
 }
