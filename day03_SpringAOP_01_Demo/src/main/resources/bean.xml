@@ -3,11 +3,19 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
+    <!-- 配置代理的Service -->
+    <bean id="proxyAccountService" factory-bean="beanFactory" factory-method="getAccountService"/>
+
+    <!--配置bean factory -->
+    <bean id="beanFactory" class="com.springLearn.factory.BeanFactory">
+        <!-- 注入service -->
+        <property name="accountService" ref="accountService"/>
+        <!-- 注入事务管理器 -->
+        <property name="txManager" ref="transactionManager"/>
+    </bean>
     <!-- 首先配置业务层对象， 配置service对象 -->
     <bean id="accountService" class="com.springLearn.service.impl.AccountServiceImpl">
         <property name="accountDao" ref="accountDao"/>
-        <!-- 注入事务管理器 -->
-        <property name="txManager" ref="transactionManager"/>
     </bean>
 
     <!-- accountService中需要一个accountDao对象，因此需要配置Dao对象 -->

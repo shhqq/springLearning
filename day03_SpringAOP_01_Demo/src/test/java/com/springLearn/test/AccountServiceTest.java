@@ -9,6 +9,7 @@ import com.springLearn.service.IAccountService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
@@ -23,6 +24,10 @@ import java.util.List;
 @ContextConfiguration(locations = "classpath:bean.xml")
 public class AccountServiceTest {
 
+    /**
+     * bean.xml中配置了两个AccountService，所以需要使用Qualifier指定名称
+     */
+    @Qualifier("proxyAccountService")
     @Autowired
     private IAccountService as;
 
