@@ -44,7 +44,8 @@ public class Client {
          *              此接口的实现类都是谁用谁写。
          */
 
-        IProducer proxyProducer = (IProducer) Proxy.newProxyInstance(producer.getClass().getClassLoader(), producer.getClass().getInterfaces(),
+        IProducer proxyProducer = (IProducer) Proxy.newProxyInstance(producer.getClass().getClassLoader(),
+                producer.getClass().getInterfaces(),
                 new InvocationHandler() {
                     /**
                      * 该方法的作用：执行被代理对象的任何方法都会先经过该方法。
