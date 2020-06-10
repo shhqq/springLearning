@@ -5,10 +5,14 @@ package com.springLearn.service.impl;
  */
 
 import com.springLearn.service.IAccountService;
+import org.springframework.stereotype.Service;
 
 /**
  * 业务层实现类
+ * 改为Annotation的AOP
  */
+
+@Service("accountService")
 public class AccountServiceImpl implements IAccountService {
 
     /**
@@ -17,7 +21,7 @@ public class AccountServiceImpl implements IAccountService {
     @Override
     public void saveAccount() {
         System.out.println("saveAccount method invoked.");
-//        int i = 1 / 0;      // 制造一个异常，用于测试四种通知和环绕通知
+        int i = 1 / 0;      // 制造一个异常，用于测试四种通知和环绕通知
     }
 
     /**

@@ -5,16 +5,28 @@ package com.springLearn.utils;
  */
 
 import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.*;
+import org.springframework.stereotype.Component;
 
 /**
  * 用于记录日志的工具类，它里面提供了公共的代码
+ * 改为使用annotation的AOP
  */
+
+@Component("logger")    //
+@Aspect                 // 表示这是一个切面类
 public class Logger {
+    /**
+     * 配置切入点表达式
+     */
+    @Pointcut("execution(* com.springLearn.service.impl.*.*(..))")
+    private void pt(){};
 
     /**
      * 用于打印日志，计划让其在切入点方法执行前执行（切入点方法就是业务层方法）
      * 前置通知
      */
+//    @Before("pt()")
     public void beforePrintLog(){
         System.out.println("Logger类中的printLog方法开始记录日志--前置通知");
     }
@@ -22,6 +34,7 @@ public class Logger {
     /**
      * 后置通知
      */
+//    @AfterReturning("pt()")
     public void afterReturningPrintLog(){
         System.out.println("Logger类中的printLog方法开始记录日志--后置通知");
     }
@@ -29,6 +42,7 @@ public class Logger {
     /**
      * 异常通知
      */
+//    @AfterThrowing("pt()")
     public void afterThrowingPrintLog(){
         System.out.println("Logger类中的printLog方法开始记录日志--异常通知");
 
@@ -37,6 +51,7 @@ public class Logger {
     /**
      * 最终通知
      */
+//    @After("pt()")
     public void afterPrintLog(){
         System.out.println("Logger类中的printLog方法开始记录日志--最终通知");
 
@@ -57,6 +72,7 @@ public class Logger {
      * @param pjp
      * @return
      */
+    @Around("pt()")
     public Object aroundPrintLog(ProceedingJoinPoint pjp){
         Object rtValue = null;
         try {
