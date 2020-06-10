@@ -17,7 +17,7 @@ public class AccountServiceImpl implements IAccountService {
     @Override
     public void saveAccount() {
         System.out.println("saveAccount method invoked.");
-        int i = 1 / 0;      // 制造一个异常，用于测试四种通知和环绕通知
+//        int i = 1 / 0;      // 制造一个异常，用于测试四种通知和环绕通知
     }
 
     /**
