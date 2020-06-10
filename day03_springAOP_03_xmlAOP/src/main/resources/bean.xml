@@ -35,7 +35,10 @@
         <!-- 配置切面 -->
         <aop:aspect id="logAdvice" ref="logger">
             <!-- 配置通知的类型，并且通过建立通知方法和切入点的关联 -->
-            <aop:before method="printLog" pointcut="execution(* com.springLearn.service.impl.*.*(..))"/>
+            <aop:before method="beforePrintLog" pointcut="execution(* com.springLearn.service.impl.*.*(..))"/>
+            <aop:after-returning method="afterReturningPrintLog" pointcut="execution(* com.springLearn.service.impl.*.*(..))"/>
+            <aop:after-throwing method="afterThrowingPrintLog" pointcut="execution(* com.springLearn.service.impl.*.*(..))"/>
+            <aop:after method="afterPrintLog" pointcut="execution(* com.springLearn.service.impl.*.*(..))"/>
         </aop:aspect>
     </aop:config>
 </beans>

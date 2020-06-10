@@ -25,7 +25,7 @@ public class AOPTest {
 
         // 3. 执行方法
         as.saveAccount();
-        as.updateAccount(1, 2);
-        as.deleteAccount();
+//        as.updateAccount(1, 2);
+//        as.deleteAccount();
     }
 }
