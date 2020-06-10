@@ -32,13 +32,19 @@
 
     <!-- 配置AOP -->
     <aop:config>
+        <aop:pointcut id="pt" expression="execution(* com.springLearn.service.impl.*.*(..))"/>
         <!-- 配置切面 -->
         <aop:aspect id="logAdvice" ref="logger">
             <!-- 配置通知的类型，并且通过建立通知方法和切入点的关联 -->
-            <aop:before method="beforePrintLog" pointcut="execution(* com.springLearn.service.impl.*.*(..))"/>
-            <aop:after-returning method="afterReturningPrintLog" pointcut="execution(* com.springLearn.service.impl.*.*(..))"/>
-            <aop:after-throwing method="afterThrowingPrintLog" pointcut="execution(* com.springLearn.service.impl.*.*(..))"/>
-            <aop:after method="afterPrintLog" pointcut="execution(* com.springLearn.service.impl.*.*(..))"/>
+            <aop:before method="beforePrintLog" pointcut-ref="pt"/>
+            <aop:after-returning method="afterReturningPrintLog" pointcut-ref="pt"/>
+            <aop:after-throwing method="afterThrowingPrintLog" pointcut-ref="pt"/>
+            <aop:after method="afterPrintLog" pointcut-ref="pt"/>
+
+            <!-- 配置切入点表达式 -->
+                <!--切入点表达式可以写在aop:aspect内部，此时只能在该aop:aspect内部使用-->
+                <!--也可以写在aop:aspect外部，此时所有的都可以使用，但必须写在aspect上面-->
+<!--            <aop:pointcut id="pt" expression="execution(* com.springLearn.service.impl.*.*(..))"/>-->
         </aop:aspect>
     </aop:config>
 </beans>
