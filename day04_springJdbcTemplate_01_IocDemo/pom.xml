@@ -7,6 +7,7 @@
   <groupId>com.springLearn</groupId>
   <artifactId>day04_springJdbcTemplate_01_IocDemo</artifactId>
   <version>1.0-SNAPSHOT</version>
+  <packaging>jar</packaging>
 
   <name>day04_springJdbcTemplate_01_IocDemo</name>
   <!-- FIXME change it to the project's website -->
@@ -19,6 +20,30 @@
   </properties>
 
   <dependencies>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-context</artifactId>
+      <version>5.0.2.RELEASE</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-jdbc</artifactId>
+      <version>5.0.2.RELEASE</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-tx</artifactId>
+      <version>5.0.2.RELEASE</version>
+    </dependency>
+
+    <dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+      <version>8.0.12</version>
+    </dependency>
+
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
