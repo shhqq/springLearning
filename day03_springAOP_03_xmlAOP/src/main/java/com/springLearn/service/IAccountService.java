@@ -20,7 +20,7 @@ public interface IAccountService {
      * 更新账户
      * @param i parameter type：integer.
      */
-    void updateAccount(int i);
+    void updateAccount(int i, int j);
 
     /**
      * 删除账户

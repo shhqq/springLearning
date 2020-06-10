@@ -22,7 +22,10 @@ public class AOPTest {
         ApplicationContext ac = new ClassPathXmlApplicationContext("bean.xml");
         // 2. 获取对象
         IAccountService as = ac.getBean("accountService", IAccountService.class);
+
         // 3. 执行方法
         as.saveAccount();
+        as.updateAccount(1, 2);
+        as.deleteAccount();
     }
 }

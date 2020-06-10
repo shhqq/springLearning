@@ -25,7 +25,7 @@ public class AccountServiceImpl implements IAccountService {
      * @param i parameter type：integer.
      */
     @Override
-    public void updateAccount(int i) {
+    public void updateAccount(int i, int j) {
         System.out.println("updateAccount method invoked.");
     }
 
