@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- 配置代理的Service -->
+    <bean id="proxyAccountService" factory-bean="beanFactory" factory-method="getAccountService"/>
+
+    <!--配置bean factory -->
+    <bean id="beanFactory" class="com.springLearn.factory.BeanFactory">
+        <!-- 注入service -->
+        <property name="accountService" ref="accountService"/>
+        <!-- 注入事务管理器 -->
+        <property name="txManager" ref="transactionManager"/>
+    </bean>
+    <!-- 首先配置业务层对象， 配置service对象 -->
+    <bean id="accountService" class="com.springLearn.service.impl.AccountServiceImpl">
+        <property name="accountDao" ref="accountDao"/>
+    </bean>
+
+    <!-- accountService中需要一个accountDao对象，因此需要配置Dao对象 -->
+    <bean id="accountDao" class="com.springLearn.dao.impl.AccountDaoImpl">
+        <property name="runner" ref="runner"/>
+        <!-- 注入ConnectionUtils -->
+        <property name="connectionUtils" ref="connectionUtils"/>
+
+    </bean>
+
+    <!-- Dao中需要一个QueryRunner对象，因此需要配置QueryRunner对象 -->
+    <!--  因为对数据库的操作可能会同时执行，导致线程安全问题，因此这里对象声明为多实例，避免对象调用冲突  -->
+    <bean id="runner" class="org.apache.commons.dbutils.QueryRunner" scope="prototype">
+    </bean>
+
+    <!-- runner中需要数据源，因此还需要 配置数据源 -->
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+        <!-- 连接数据库的四大必备信息 -->
+        <property name="driverClass" value="com.mysql.cj.jdbc.Driver"/>
+        <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/mydbtest"/>
+        <property name="user" value="root"/>
+        <property name="password" value="123456"/>
+    </bean>
+
+    <!--配置Connection的工具类，即ConnectionUtils-->
+    <bean id="connectionUtils" class="com.springLearn.utils.ConnectionUtils">
+        <!-- 注入数据源 -->
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <!-- 配置事务管理器 -->
+    <bean id="transactionManager" class="com.springLearn.utils.TransactionManager">
+        <!-- 注入ConnectionUtils -->
+        <property name="connectionUtils" ref="connectionUtils"/>
+    </bean>
+</beans>
