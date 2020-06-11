@@ -6,9 +6,11 @@ package com.springLearn.dao.impl;
 
 import com.springLearn.dao.IAccountDao;
 import com.springLearn.domain.Account;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
+import org.springframework.stereotype.Repository;
 
 
 import javax.sql.DataSource;
@@ -17,7 +19,11 @@ import java.util.List;
 /**
  * 账户的持久层实现类
  */
-public class AccountDaoImpl extends JdbcDaoSupport implements IAccountDao {
+@Repository("accountDao")
+public class AccountDaoImpl implements IAccountDao {
+
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
 
     /**
      * 按ID查询
@@ -27,7 +33,7 @@ public class AccountDaoImpl extends JdbcDaoSupport implements IAccountDao {
      */
     @Override
     public Account findAccountById(int id) {
-        List<Account> accounts = getJdbcTemplate().query("select * from account where id = ?",
+        List<Account> accounts = jdbcTemplate.query("select * from account where id = ?",
                 new BeanPropertyRowMapper<>(Account.class), id);
         return accounts.isEmpty()? null: accounts.get(0);
     }
@@ -40,7 +46,7 @@ public class AccountDaoImpl extends JdbcDaoSupport implements IAccountDao {
      */
     @Override
     public Account findAccountByName(String name) {
-        List<Account> accounts = getJdbcTemplate().query("select * from account where name = ?",
+        List<Account> accounts = jdbcTemplate.query("select * from account where name = ?",
                 new BeanPropertyRowMapper<>(Account.class), name);
         if(accounts.isEmpty()){
             return null;
@@ -53,7 +59,7 @@ public class AccountDaoImpl extends JdbcDaoSupport implements IAccountDao {
 
     @Override
     public void updateAccount(Account account) {
-        getJdbcTemplate().update("update account set name = ?, money = ? where id = ?",
+        jdbcTemplate.update("update account set name = ?, money = ? where id = ?",
                 account.getName(), account.getMoney(), account.getId());
     }
 }
