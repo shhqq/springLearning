@@ -10,6 +10,8 @@ import com.springLearn.utils.ConnectionUtils;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -18,21 +20,17 @@ import java.util.List;
 /**
  * 持久层实现类
  */
+@Repository("accountDao")
 public class AccountDaoImpl implements IAccountDao {
 
     // 需要一个数据库操作对象
+    // 改为注解，set方法就不需要了
+    @Autowired
     private QueryRunner runner;
 
+    @Autowired
     private ConnectionUtils connectionUtils;
 
-    public void setConnectionUtils(ConnectionUtils connectionUtils){
-        this.connectionUtils = connectionUtils;
-    }
-
-    // 该对象也由spring提供，使用xml方式，因此，也需要set方法
-    public void setRunner(QueryRunner runner){
-        this.runner = runner;
-    }
 
     /**
      * 保存

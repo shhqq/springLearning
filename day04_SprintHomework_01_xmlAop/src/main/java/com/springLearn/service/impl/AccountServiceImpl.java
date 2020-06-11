@@ -10,6 +10,8 @@ import com.springLearn.dao.IAccountDao;
 import com.springLearn.domain.Account;
 import com.springLearn.service.IAccountService;
 import com.springLearn.utils.TransactionManager;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  * 业务层实现类
@@ -17,9 +19,11 @@ import com.springLearn.utils.TransactionManager;
  * 改造service，在业务层进行事务控制
  * service需要TransactionManager中的方法
  */
+@Service("accountService")
 public class AccountServiceImpl implements IAccountService {
 
     // 业务层调用持久层
+    @Autowired
     IAccountDao accountDao;
 
     // 使用代理后，这里TransactionManager不再需要
@@ -35,9 +39,9 @@ public class AccountServiceImpl implements IAccountService {
 //    }
 
     // 此时需要spring注入数据，使用xml的方式，因此accountDao需要set方法
-    public void setAccountDao(IAccountDao accountDao){
-        this.accountDao = accountDao;
-    }
+//    public void setAccountDao(IAccountDao accountDao){
+//        this.accountDao = accountDao;
+//    }
 
     @Override
     public void saveAccount(Account account) {

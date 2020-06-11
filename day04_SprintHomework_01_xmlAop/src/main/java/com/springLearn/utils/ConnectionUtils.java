@@ -4,26 +4,31 @@ package com.springLearn.utils;
  * Created by s on 2020/6/8 14:20.
  */
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import javax.sql.DataSource;
 import java.sql.Connection;
 
 /**
  * 连接的工具类，用来从数据源中获取一个连接， 并且实现与线程的绑定
  */
+@Component("connectionUtils")
 public class ConnectionUtils {
 
     private ThreadLocal<Connection> tl = new ThreadLocal<>();
 
     // 数据源，需要一个set方法，由spring的容器注入
+    @Autowired
     private DataSource dataSource;
 
     /**
      * dataSource的set方法
      * @param dataSource    DataSource
      */
-    public void setDataSource(DataSource dataSource){
-        this.dataSource = dataSource;
-    }
+//    public void setDataSource(DataSource dataSource){
+//        this.dataSource = dataSource;
+//    }
 
     /**
      * 从ThreadLocal中获取连接

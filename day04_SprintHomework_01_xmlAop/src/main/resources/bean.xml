@@ -2,31 +2,26 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:Aop="http://www.springframework.org/schema/aop"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/aop
-        http://www.springframework.org/schema/aop/spring-aop.xsd">
+        http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
 
-
-    <!-- 首先配置业务层对象， 配置service对象 -->
-    <bean id="accountService" class="com.springLearn.service.impl.AccountServiceImpl">
-        <property name="accountDao" ref="accountDao"/>
-    </bean>
-
-    <!-- accountService中需要一个accountDao对象，因此需要配置Dao对象 -->
-    <bean id="accountDao" class="com.springLearn.dao.impl.AccountDaoImpl">
-        <property name="runner" ref="runner"/>
-        <!-- 注入ConnectionUtils -->
-        <property name="connectionUtils" ref="connectionUtils"/>
-
-    </bean>
+    <!-- 配置基于注解的AOP要扫描的包 -->
+    <context:component-scan base-package="com.springLearn"/>
 
     <!-- Dao中需要一个QueryRunner对象，因此需要配置QueryRunner对象 -->
     <!--  因为对数据库的操作可能会同时执行，导致线程安全问题，因此这里对象声明为多实例，避免对象调用冲突  -->
+    <!-- QueryRunner不是自己写的类，要保留下来 -->
     <bean id="runner" class="org.apache.commons.dbutils.QueryRunner" scope="prototype">
     </bean>
 
     <!-- runner中需要数据源，因此还需要 配置数据源 -->
+    <!-- datasource目前还不能使用注解配置 -->
     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
         <!-- 连接数据库的四大必备信息 -->
         <property name="driverClass" value="com.mysql.cj.jdbc.Driver"/>
@@ -36,26 +31,28 @@
     </bean>
 
     <!--配置Connection的工具类，即ConnectionUtils-->
-    <bean id="connectionUtils" class="com.springLearn.utils.ConnectionUtils">
-        <!-- 注入数据源 -->
-        <property name="dataSource" ref="dataSource"/>
-    </bean>
+    <!-- 自己写的连接工具类，就可以使用注解 -->
+<!--    <bean id="connectionUtils" class="com.springLearn.utils.ConnectionUtils">-->
+<!--        &lt;!&ndash; 注入数据源 &ndash;&gt;-->
+<!--        <property name="dataSource" ref="dataSource"/>-->
+<!--    </bean>-->
 
     <!-- 配置事务管理器 -->
-    <bean id="transactionManager" class="com.springLearn.utils.TransactionManager">
-        <!-- 注入ConnectionUtils -->
-        <property name="connectionUtils" ref="connectionUtils"/>
-    </bean>
+<!--    <bean id="transactionManager" class="com.springLearn.utils.TransactionManager">-->
+<!--        &lt;!&ndash; 注入ConnectionUtils &ndash;&gt;-->
+<!--        <property name="connectionUtils" ref="connectionUtils"/>-->
+<!--    </bean>-->
 
-    <!-- 新增aop配置-->
-    <aop:config>
-        <!-- 配置切入点表达式，注意：事务控制要放在业务层，也就是这里是service.impl -->
-        <aop:pointcut id="pt" expression="execution(* com.springLearn.service.impl.*.*(..))"/>
-        <aop:aspect id="aspectAdvice" ref="transactionManager">
-            <aop:before method="beginTransaction" pointcut-ref="pt"/>
-            <aop:after-returning method="commit" pointcut-ref="pt"/>
-            <aop:after-throwing method="rollback" pointcut-ref="pt"/>
-            <aop:after method="release" pointcut-ref="pt"/>
-        </aop:aspect>
-    </aop:config>
+<!--    &lt;!&ndash; 新增aop配置&ndash;&gt;-->
+<!--    <aop:config>-->
+<!--        &lt;!&ndash; 配置切入点表达式，注意：事务控制要放在业务层，也就是这里是service.impl &ndash;&gt;-->
+<!--        <aop:pointcut id="pt" expression="execution(* com.springLearn.service.impl.*.*(..))"/>-->
+<!--        <aop:aspect id="aspectAdvice" ref="transactionManager">-->
+<!--            <aop:before method="beginTransaction" pointcut-ref="pt"/>-->
+<!--            <aop:after-returning method="commit" pointcut-ref="pt"/>-->
+<!--            <aop:after-throwing method="rollback" pointcut-ref="pt"/>-->
+<!--            <aop:after method="release" pointcut-ref="pt"/>-->
+<!--        </aop:aspect>-->
+        <!--开启spring对aop的支持 -->
+        <aop:aspectj-autoproxy></aop:aspectj-autoproxy>
 </beans>
