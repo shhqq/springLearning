@@ -27,7 +27,6 @@ public class AccountServiceTest {
     /**
      * bean.xml中配置了两个AccountService，所以需要使用Qualifier指定名称
      */
-    @Qualifier("proxyAccountService")
     @Autowired
     private IAccountService as;
 
