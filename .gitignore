@@ -73,6 +73,10 @@ hs_err_pid*
 /*/.idea/
 /*/target/
 
+# 忽略mybatis下的所有项目中的.idea和target
+/mybatisLearn/*/.idea/
+/mybatisLearn/*/target/
+
 # macOS
 .DS_Store
 

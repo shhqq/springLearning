@@ -22,9 +22,11 @@
         </environment>
     </environments>
 
-    <!-- 指定映射配置文件的位置，映射配置文件指的是每个dao独立的配置文件 -->
+    <!-- 指定映射配置文件的位置，映射配置文件指的是每个dao独立的配置文件
+     如果是使用注解进行配置，需要使用class属性指明dao的全限定类名-->
     <mappers>
         <!-- 这里resource 要使用目录形式，使用 / 而不是 . -->
-        <mapper resource="com/mybatisLearn/dao/IUserDao.xml"/>
+<!--        <mapper resource="com/springLearn/dao/IUserDao.xml"/>-->
+        <mapper class="com.mybatisLearn.dao.IUserDao"/>
     </mappers>
 </configuration>

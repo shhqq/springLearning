@@ -1,17 +1,16 @@
-package com.springLearn.test;
+package com.mybatisLearn.test;
 
 /**
  * Created by s on 2020/6/16 11:19.
  */
 
-import com.springLearn.dao.IUserDao;
-import com.springLearn.domain.User;
+import com.mybatisLearn.dao.IUserDao;
+import com.mybatisLearn.domain.User;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
-import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.List;
 

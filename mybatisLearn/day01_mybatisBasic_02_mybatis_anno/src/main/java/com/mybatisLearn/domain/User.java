@@ -1,4 +1,4 @@
-package com.springLearn.domain;
+package com.mybatisLearn.domain;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -15,6 +15,12 @@ import java.util.Date;
  *      2. 需要一个实体类
  *          在本示例中，该实体类的变量名需要和数据库中的列名一致。
  *      3. 创建User的Dao接口
+ * 本工程继承上述工程，主要内容：
+ *      1. 将基于xml的mybatis改为基于annotation的mybatis
+ *      2. 将映射配置全部删除
+ *      3. 将主配置中的映射配置部分的resource改为class
+ *      4. 使用注解，将dao接口中的抽象方法进行注解
+ *
  */
 
 /**
