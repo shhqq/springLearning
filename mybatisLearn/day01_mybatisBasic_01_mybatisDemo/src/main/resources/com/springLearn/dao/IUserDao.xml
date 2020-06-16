@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 配置mapper，namespace属性是dao的全限定类名 -->
+<mapper namespace="com.springLearn.dao.IUserDao">
+    <!-- 配置查询所有方法 需要指定resultType，也就是查询结果的封装实体类 -->
+    <select id="findAll" resultType="com.springLearn.domain.User">
+        select * from USER; -- 分号是可选的
+    </select>
+</mapper>
