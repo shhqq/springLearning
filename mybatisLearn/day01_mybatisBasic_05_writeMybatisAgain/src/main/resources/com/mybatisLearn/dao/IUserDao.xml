@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- 配置mapper，namespace属性是dao的全限定类名 -->
+<mapper namespace="com.mybatisLearn.dao.IUserDao">
+    <!-- 配置查询所有方法 需要指定resultType，也就是查询结果的封装实体类 -->
+    <select id="findAll" resultType="com.mybatisLearn.domain.User">
+        select * from USER; -- 分号是可选的
+    </select>
+</mapper>
