@@ -6,10 +6,13 @@ package com.mybatisLearn.test;
 
 import com.mybatisLearn.dao.IUserDao;
 import com.mybatisLearn.domain.User;
-import org.apache.ibatis.io.Resources;
-import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
-import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+import com.mybatisLearn.mybatis.io.Resources;
+import com.mybatisLearn.sqlSession.SqlSessionFactory;
+import com.mybatisLearn.sqlSession.SqlSessionFactoryBuilder;
+//import org.apache.ibatis.io.Resources;
+//import org.apache.ibatis.session.SqlSession;
+//import org.apache.ibatis.session.SqlSessionFactory;
+//import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 import java.io.InputStream;
 import java.util.List;
