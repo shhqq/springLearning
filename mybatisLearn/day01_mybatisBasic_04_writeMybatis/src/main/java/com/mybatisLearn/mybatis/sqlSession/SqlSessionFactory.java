@@ -1,4 +1,4 @@
-package com.mybatisLearn.sqlSession;
+package com.mybatisLearn.mybatis.sqlSession;
 
 /**
  * Created by s on 2020/6/17 09:06.

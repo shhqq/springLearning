@@ -1,9 +1,10 @@
-package com.mybatisLearn.config;
+package com.mybatisLearn.mybatis.config;
 
 /**
  * Created by s on 2020/6/17 09:18.
  */
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -16,7 +17,9 @@ public class Configuration {
     private String url;
     private String username;
     private String password;
-    private Map mappers;
+
+    // 这里必须new一个对象，否则set方法中的putAll会产生空指针异常
+    private Map<String, Mapper> mappers = new HashMap<>();
 
     public Map getMappers() {
         return mappers;
