@@ -5,6 +5,7 @@ package com.mybatisLearn.dao;
  */
 
 import com.mybatisLearn.domain.User;
+import com.mybatisLearn.mybatis.annotation.Select;
 
 import java.util.List;
 
@@ -17,5 +18,6 @@ public interface IUserDao {
      * 查询所有用户
      * @return 返回用户列表
      */
+    @Select("select * from user")
     List<User> findAll();
 }

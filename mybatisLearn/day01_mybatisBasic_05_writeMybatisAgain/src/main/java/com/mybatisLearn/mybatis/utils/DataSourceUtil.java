@@ -16,10 +16,11 @@ public class DataSourceUtil {
 
     /**
      * 根据配置获取一个Connection
+     * TODO: 这个方法应该写成静态还是非静态？
      * @param cfg Configuration对象
      * @return 返回一个Connection对象
      */
-    public Connection getConnection(Configuration cfg){
+    public static Connection getConnection(Configuration cfg){
         try{
             Class.forName(cfg.getDriver());
             return DriverManager.getConnection(cfg.getUrl(), cfg.getUsername(), cfg.getPassword());

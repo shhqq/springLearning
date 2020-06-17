@@ -27,7 +27,7 @@ public class DefaultSqlSession implements SqlSession {
      */
     public DefaultSqlSession(Configuration cfg){
         this.cfg = cfg;
-        conn = new DataSourceUtil().getConnection(cfg);
+        conn = DataSourceUtil.getConnection(cfg);
     }
 
     /**
