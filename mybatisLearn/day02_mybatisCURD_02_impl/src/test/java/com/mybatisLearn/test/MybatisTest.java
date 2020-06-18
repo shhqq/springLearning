@@ -1,7 +1,7 @@
 package com.mybatisLearn.test;
 
 import com.mybatisLearn.dao.IUserDao;
-import com.mybatisLearn.domain.HelpUser;
+import com.mybatisLearn.dao.impl.UserDaoImpl;
 import com.mybatisLearn.domain.User;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
@@ -37,9 +37,10 @@ public class MybatisTest {
         SqlSessionFactoryBuilder builder = new SqlSessionFactoryBuilder();
         SqlSessionFactory sqlSessionFactory= builder.build(in);
         // 3. 创建SqlSession
-        sqlSession = sqlSessionFactory.openSession();
-        // 4. 获取dao的代理对象
-        userDao = sqlSession.getMapper(IUserDao.class);
+//        sqlSession = sqlSessionFactory.openSession();
+        // 4. 获取dao的代理对象    --改为使用实现类
+//        userDao = sqlSession.getMapper(IUserDao.class);
+        userDao = new UserDaoImpl(sqlSessionFactory);
     }
 
     /**
@@ -47,9 +48,9 @@ public class MybatisTest {
      */
     @After
     public void destroy() throws Exception{
-        // 这里需要调用提交，才能提交成功。
-        sqlSession.commit();
-        sqlSession.close();
+//        // 这里需要调用提交，才能提交成功。
+//        sqlSession.commit();
+//        sqlSession.close();
         in.close();
     }
 
@@ -72,7 +73,7 @@ public class MybatisTest {
     @Test
     public void testSaveUser(){
         User user = new User();
-        user.setUsername("insert id item");
+        user.setUsername("insert impl item");
         user.setSex("男");
         user.setBirthday(new Date());
         user.setAddress("Nanjing");
@@ -88,9 +89,9 @@ public class MybatisTest {
     @Test
     public void testUpdateUser(){
         User user = new User();
-        user.setId(51);
-        user.setUsername("update item");
-        user.setSex("女");
+        user.setId(50);
+        user.setUsername("update impl");
+        user.setSex("男");
         user.setAddress("Xi'an");
         user.setBirthday(new Date(2020-1900, Calendar.FEBRUARY, 23, 23,23,12));
         userDao.updateUser(user);
@@ -101,44 +102,16 @@ public class MybatisTest {
      */
     @Test
     public void testDeleteUser(){
-        userDao.deleteUser(52);
+        userDao.deleteUser(53);
     }
 
-    /**
-     * 模糊查询
-     */
-    @Test
-    public void testFindUserFuzzyQuery(){
-        // 模糊查询中的%放在这里
-        String name = "%王%";
-
-        List<User> users = userDao.findUserFuzzyQuery(name);
-        for(User user : users){
-            System.out.println(user);
-        }
-    }
-
-    /**
-     * 测试包含User作为参数的查询
-     */
-    @Test
-    public void testFindUserFromHelpUser(){
-        // HelpUser类中包含User对象
-        HelpUser helpUser = new HelpUser();
-        User user = new User();
-        user.setUsername("update item");
-        helpUser.setUser(user);
-
-        User u = userDao.findUserFromHelpUser(helpUser);
-        System.out.println(u);
-    }
 
     /**
      * 测试根据名称查询
      */
     @Test
     public void testFindUserByName(){
-        String name = "update item";
+        String name = "update impl";
         User user = userDao.findUserByName(name);
         System.out.println(user);
     }
