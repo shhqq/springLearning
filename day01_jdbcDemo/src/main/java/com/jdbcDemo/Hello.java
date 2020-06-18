@@ -7,6 +7,12 @@ import java.sql.*;
  * 测试数据库连接
  * 首先手动添加mysql-connector-cj-jdbc-Driver驱动或者通过maven添加配置进行导包
  */
+
+/**
+ * java使用数据库的第一种方式：使用Connection
+ * 使用DriverManager.getConnection(url, username, password)获取连接，使用预处理执行操作。
+ */
+
 public class Hello {
     // MySQL驱动包名
     // 从mysql-connector-java 5.x之后，数据库驱动变为com.mysql.cj.jdbc.Driver
