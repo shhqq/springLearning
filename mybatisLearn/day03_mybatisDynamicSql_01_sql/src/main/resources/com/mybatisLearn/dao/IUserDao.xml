@@ -5,6 +5,12 @@
 
 <!--配置mapper，namespace属性是dao的全限定类名 -->
 <mapper namespace="com.mybatisLearn.dao.IUserDao">
+
+    <!-- 定义sql片段，后续可以复用，注意不要加分号 -->
+    <sql id="defaultSql">
+        select * from user
+    </sql>
+
     <!-- 查询所有方法 需要指定查询结果的封装实体类-->
     <select id="findAll" resultType="com.mybatisLearn.domain.User">
         select * from user;
@@ -86,7 +92,7 @@
     </select>
 
     <select id="findUserByConditionList" parameterType="HelpUser" resultType="user">
-        select * from user
+        <include refid="defaultSql"></include>
         <where>
             <!-- 多个条件时，每个条件都加上and或or，where标签会将最开始的and或or去掉-->
             <!-- test是必须的，如果有多个条件，需要使用and连接 -->
