@@ -60,5 +60,18 @@ public interface IUserDao {
      */
     User findUserByName(String name);
 
+    /**
+     * 动态sql语句
+     * if where标签使用
+     * @param user
+     * @return
+     */
     List<User> findUserByCondition(User user);
+
+    /**
+     * 动态sql语句
+     * foreach标签的使用
+     * @return
+     */
+    List<User> findUserByConditionList(HelpUser helpUser);
 }

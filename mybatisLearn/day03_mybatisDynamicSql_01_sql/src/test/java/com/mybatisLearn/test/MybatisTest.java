@@ -12,9 +12,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.InputStream;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by s on 2020/6/18 09:01.
@@ -151,8 +149,31 @@ public class MybatisTest {
     public void testFindUsersByCondition(){
         User user = new User();
         user.setUsername("老王");
+        user.setSex("男");
 
         List<User> users = userDao.findUserByCondition(user);
+        for(User u: users){
+            System.out.println(u);
+        }
+    }
+
+    /**
+     * 测试动态sql语句
+     * foreach语句的使用
+     */
+    @Test
+    public void testFindUserByConditionList(){
+        User user = new User();
+        user.setUsername("老王");
+        user.setSex("男");
+
+        List<Integer> ids = new ArrayList<>(Arrays.asList(41, 42, 43));
+
+        HelpUser helpUser = new HelpUser();
+        helpUser.setUser(user);
+        helpUser.setIds(ids);
+
+        List<User> users = userDao.findUserByConditionList(helpUser);
         for(User u: users){
             System.out.println(u);
         }

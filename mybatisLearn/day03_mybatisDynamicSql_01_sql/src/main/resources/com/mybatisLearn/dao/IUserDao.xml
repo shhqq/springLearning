@@ -47,7 +47,7 @@
         select * from user where username=#{user.username}
     </select>
 
-    <!-- 配置实体类与数据库列名的对应关系 -->
+     <!-- 配置实体类与数据库列名的对应关系 -->
     <resultMap id="UserMap" type="com.mybatisLearn.domain.User">
         <!-- 配置主键对应关系-->
         <id property="id" column="id"/>
@@ -71,9 +71,36 @@
 <!--    </select>-->
 
     <select id="findUserByCondition" parameterType="User" resultType="user">
-        select * from user where 1 = 1
-        <if test="username != null">
-            and username = #{username}
-        </if>
+        select * from user
+        <where>
+            <!-- 多个条件时，每个条件都加上and或or，where标签会将最开始的and或or去掉-->
+            <!-- test是必须的，如果有多个条件，需要使用and连接 -->
+            <if test="username != null and username != ''">
+                and username = #{username}
+            </if>
+
+            <if test="sex != null and sex != ''">
+                or sex = #{sex}
+            </if>
+        </where>
+    </select>
+
+    <select id="findUserByConditionList" parameterType="HelpUser" resultType="user">
+        select * from user
+        <where>
+            <!-- 多个条件时，每个条件都加上and或or，where标签会将最开始的and或or去掉-->
+            <!-- test是必须的，如果有多个条件，需要使用and连接 -->
+            <if test="user.username != null and user.username != ''">
+                and username = #{user.username}
+            </if>
+
+
+            <if test="ids != null and ids.size() >0">
+            <!-- item属性需要和#{}取值相同 -->
+                <foreach collection="ids" open="and id in(" item="uid" close=")" separator=",">
+                    #{uid}
+                </foreach>
+            </if>
+        </where>
     </select>
 </mapper>
