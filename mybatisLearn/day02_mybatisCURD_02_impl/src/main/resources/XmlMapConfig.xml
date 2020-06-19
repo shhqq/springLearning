@@ -5,6 +5,23 @@
 
 <!-- mybatis的主配置文件 -->
 <configuration>
+    <!-- 使用properties标签配置数据库，可以是外部配置文件，也可以使用property标签 -->
+    <!-- 1. 外部文件，那么properties需要使用resource或url指定文件路径，在dataSource中使用${配置文件中的名称}获取 -->
+    <!-- 2. 如果是在properties中使用property配置，那么dataSource中使用${property的name}-->
+    <properties resource="jdbc.properties">
+<!--        <property name="driver" value="${jdbc.driver}"/>-->
+<!--        <property name="url" value="${jdbc.url}"/>-->
+<!--        <property name="username" value="${jdbc.username}"/>-->
+<!--        <property name="password" value="${jdbc.password}"/>-->
+    </properties>
+
+    <!-- 使用typeAliases标签给实体类指定别名，注意只能给domain中的实体类指定别名，且指定后，不区分大小写 -->
+    <typeAliases>
+        <typeAlias type="com.mybatisLearn.domain.User" alias="user"/>
+        <!-- 使用package标签，该包下的类都会注册别名，别名和其类名一致，且不区分大小写 -->
+<!--        <package name="com.mybatisLearn.domain"/>-->
+    </typeAliases>
+
     <!-- 配置环境，default属性必须是某个environment的id -->
     <environments default="mysql">
         <!-- 配置mysql环境 -->
@@ -13,10 +30,10 @@
             <transactionManager type="JDBC"></transactionManager>
             <!-- 配置数据源（连接池） -->
             <dataSource type="POOLED">
-                <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
-                <property name="url" value="jdbc:mysql://localhost:3306/mybatistest"/>
-                <property name="username" value="root"/>
-                <property name="password" value="123456"/>
+                <property name="driver" value="${jdbc.driver}"/>
+                <property name="url" value="${jdbc.url}"/>
+                <property name="username" value="${jdbc.username}"/>
+                <property name="password" value="${jdbc.password}"/>
             </dataSource>
         </environment>
     </environments>
@@ -24,5 +41,7 @@
     <!--指定映射配置文件位置，映射配置文件为每个dao单独的配置文件 -->
     <mappers>
         <mapper resource="com/mybatisLearn/dao/IUserDao.xml"/>
+        <!-- mappers中可以使用package，该包下所有的接口都会映射配置文件，前提是接口和其配置文件的包结构相同 -->
+<!--        <package name="com.mybatisLearn.dao"/>-->
     </mappers>
 </configuration>
