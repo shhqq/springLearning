@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--配置mapper，namespace属性是dao的全限定类名 -->
+<mapper namespace="com.mybatisLearn.dao.IUserDao">
+    <!-- 查询所有方法 需要指定查询结果的封装实体类-->
+    <select id="findAll" resultType="com.mybatisLearn.domain.User">
+        select * from user;
+    </select>
+
+    <insert id="saveUser" parameterType="com.mybatisLearn.domain.User">
+<!-- 使用selectKey返回插入结果的id，id将赋值给对象中的id
+        keyProperty： 对象中的字段
+        keyColumn： 数据库中的列名
+        resultType: 返回值的类型
+        order：sql语句执行前还是执行后
+        -->
+        <selectKey keyProperty="id" keyColumn="id" resultType="int" order="AFTER">
+            select last_insert_id();
+        </selectKey>
+        insert into user(username, sex, birthday, address) values(#{username}, #{sex}, #{birthday}, #{address})
+    </insert>
+
+    <update id="updateUser" parameterType="com.mybatisLearn.domain.User">
+        update user set username=#{username}, sex=#{sex}, birthday=#{birthday}, address=#{address} where id=#{id}
+    </update>
+
+    <!-- 参数类型为int，INT,integer都可以，由于只有一个参数，sql语句中id可以任意取名 -->
+    <delete id="deleteUser" parameterType="int">
+        delete from user where id=#{uid}
+    </delete>
+
+    <!-- 模糊查询，模糊查询有两种方式 -->
+    <!-- 第一种方式 -->
+    <select id="findUserFuzzyQuery" parameterType="String" resultType="com.mybatisLearn.domain.User">
+        select * from user where username like #{name}
+    </select>
+    <!-- 模糊查询的第二种方式，在调用时就不需要使用%，这种方式使用statement的字符串拼接，效率要低一些，一般不使用 -->
+<!--    select * from user where username like '%${value}%'-->
+
+
+    <!-- 由于实体类中的成员变量的set、get方法都是自动生成的，所以成员变量直接用.连接即可 -->
+    <!-- 首先根据parameterType中找到user成员，然后再在User类中找username成员  即OGNL表达式-->
+    <select id="findUserFromHelpUser" parameterType="com.mybatisLearn.domain.HelpUser" resultType="com.mybatisLearn.domain.User">
+        select * from user where username=#{user.username}
+    </select>
+
+    <!-- 配置实体类与数据库列名的对应关系 -->
+    <resultMap id="UserMap" type="com.mybatisLearn.domain.User">
+        <!-- 配置主键对应关系-->
+        <id property="id" column="id"/>
+        <!-- 非主键对应关系 -->
+        <result property="username" column="username"/>
+        <result property="sex" column="sex"/>
+        <result property="birthday" column="birthday"/>
+        <result property="address" column="address"/>
+    </resultMap>
+
+    <!--如果实体类和数据库列名不对应，那么有两种方式-->
+    <!-- 第一种方式是使用别名 直接是sql层面，所以效率高-->
+    <select id="findUserByName" parameterType="String" resultType="com.mybatisLearn.domain.User">
+        select id as id, username as username, sex as sex, birthday as birthday, address as address from user where username=#{username}
+<!--         select * from user where username=#{username}-->
+    </select>
+
+    <!-- 第二种方式是使用resultMap指定对应关系，这种方式由于不是嵌入式，效率要低一些，但开发效率高一些 -->
+<!--    <select id="findUserByName" parameterType="String" resultMap="UserMap">-->
+<!--        select * from user where username=#{username}-->
+<!--    </select>-->
+
+    <select id="findUserByCondition" parameterType="User" resultType="user">
+        select * from user where 1 = 1
+        <if test="username != null">
+            and username = #{username}
+        </if>
+    </select>
+</mapper>
