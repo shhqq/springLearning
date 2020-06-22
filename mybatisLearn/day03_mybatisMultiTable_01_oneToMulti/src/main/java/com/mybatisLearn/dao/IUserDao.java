@@ -14,8 +14,14 @@ import java.util.List;
 public interface IUserDao {
 
     /**
-     * 查询所有用户
+     * 查询所有用户及其账户
      * @return list of users.
      */
     List<User> findAll();
+
+    /**
+     * 查询所有用户及其角色
+     * @return
+     */
+    List<User> listUsersWithRole();
 }

@@ -4,10 +4,12 @@ package com.mybatisLearn.domain;
  * Created by s on 2020/6/19 17:34.
  */
 
+import java.io.Serializable;
+
 /**
  * 账户的实体类
  */
-public class Account {
+public class Account implements Serializable {
 
     private Integer id;
     private Integer uid;

@@ -2,7 +2,9 @@ package com.mybatisLearn.test;
 
 import com.mybatisLearn.dao.AccountMapper;
 import com.mybatisLearn.dao.IUserDao;
+import com.mybatisLearn.dao.RoleMapper;
 import com.mybatisLearn.domain.Account;
+import com.mybatisLearn.domain.Role;
 import com.mybatisLearn.domain.User;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
@@ -31,6 +33,7 @@ public class mybatisTest {
     private SqlSession session;
     private IUserDao userDao;
     private AccountMapper accountMapper;
+    private RoleMapper roleMapper;
 
     @Before // 测试方法执行前
     public void init() throws Exception{
@@ -41,6 +44,7 @@ public class mybatisTest {
         // 创建代理对象
         userDao = session.getMapper(IUserDao.class);
         accountMapper = session.getMapper(AccountMapper.class);
+        roleMapper = session.getMapper(RoleMapper.class);
     }
 
     @After // 测试方法执行后
@@ -83,4 +87,25 @@ public class mybatisTest {
             }
         });
     }
+
+    /**
+     * 测试查询所有账户及其角色
+     * 测试多对多查询
+     */
+    @Test
+    public void testListUsersWithRole(){
+        List<User> users = userDao.listUsersWithRole();
+        users.forEach(System.out::println);
+    }
+
+    /**
+     * 测试查询所有角色及其用户
+     * 测试多对多查询
+     */
+    @Test
+    public void testListRolesWithUser(){
+        List<Role> roles = roleMapper.listRolesWithUser();
+        roles.forEach(System.out::println);
+    }
+
 }

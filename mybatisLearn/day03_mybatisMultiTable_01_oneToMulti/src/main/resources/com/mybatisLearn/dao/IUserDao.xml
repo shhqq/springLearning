@@ -8,6 +8,7 @@
         select * from user
     </sql>
 
+    <!-- 用户及其账户的字段和表列名对应关系 -->
     <resultMap id="UserWithAccounts" type="user">
         <id property="id" column="id"/>
         <result property="username" column="username"/>
@@ -20,10 +21,30 @@
             <result property="uid" column="uid"/>
             <result property="money" column="money"/>
         </collection>
-
     </resultMap>
 
     <select id="findAll" resultMap="UserWithAccounts">
         select u.*, a.id as aid, a.uid, a.money from user u left outer join account a on a.uid = u.id
+    </select>
+
+    <!-- 用户及其角色的字段和表列名对应关系 -->
+    <resultMap id="UserWithRole" type="user">
+        <id property="id" column="id"/>
+        <result property="username" column="username"/>
+        <result property="sex" column="sex"/>
+        <result property="birthday" column="birthday"/>
+        <result property="address" column="address"/>
+        <!-- 使用collection标签配置accounts集合的映射，使用ofType属性指定集合元素类型 -->
+        <collection property="roles" ofType="role">
+            <id property="id" column="rid"/>
+            <result property="roleName" column="role_name"/>
+            <result property="roleDesc" column="role_desc"/>
+        </collection>
+    </resultMap>
+
+    <select id="listUsersWithRole" resultMap="UserWithRole">
+        select u.*, r.id as rid, r.role_name, r.role_desc from user u
+         left outer join user_role ur on ur.uid = u.id
+         left outer join role r on ur.rid = r.id;
     </select>
 </mapper>
