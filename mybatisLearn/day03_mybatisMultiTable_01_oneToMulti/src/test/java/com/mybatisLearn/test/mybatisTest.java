@@ -108,4 +108,21 @@ public class mybatisTest {
         roles.forEach(System.out::println);
     }
 
+    /**
+     * 查询所有账户，使用懒加载对其中的user变量进行查询
+     */
+    @Test
+    public void testListAccountsUsingLazyLoading(){
+        List<Account> accounts = accountMapper.listAccountsUsingLazyLoading();
+        accounts.forEach(System.out::println);
+    }
+
+    /**
+     * 查询所有用户，使用懒加载对其中的Accounts变量进行查询
+     */
+    @Test
+    public void listUsersWithAccountUsingLazyLoading(){
+        List<User> users = userDao.listUsersWithAccountUsingLazyLoading();
+        users.forEach(System.out::println);
+    }
 }

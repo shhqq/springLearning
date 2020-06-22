@@ -7,6 +7,12 @@
     <!-- 数据库信息配置 -->
     <properties resource="jdbc.properties"/>
 
+    <!-- 配置懒加载 -->
+    <settings>
+        <setting name="lazyLoadingEnabled" value="true"/>
+        <setting name="aggressiveLazyLoading" value="false"/>
+    </settings>
+
     <!-- 配置别名 -->
     <typeAliases>
         <package name="com.mybatisLearn.domain"/>

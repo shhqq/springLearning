@@ -4,7 +4,6 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mybatisLearn.dao.AccountMapper">
 
-    
     <!-- 配置带有user对象作为成员变量的account的成员与列名映射关系 -->
     <resultMap id="accountWithUserMapper" type="Account">
         <id property="id" column="aid"/>
@@ -22,5 +21,22 @@
 
     <select id="listAccounts" resultMap="accountWithUserMapper">
         select u.*, a.id as aid, a.uid, a.money from account as a, user as u where a.uid = u.id;
+    </select>
+
+    <!-- 配置带有user对象作为成员变量的account的成员与列名映射关系 - 使用懒加载-->
+    <resultMap id="accountWithUserMapperLazyLoading" type="Account">
+        <id property="id" column="aid"/>
+        <result property="uid" column="uid"/>
+        <result property="money" column="money"/>
+        <!-- 内联对象，使用javaType属性指定内联类，使用全限定类名，或者别名 -->
+        <association property="user" javaType="User" column="uid" select="com.mybatisLearn.dao.IUserDao.getUserById"/>
+    </resultMap>
+
+    <select id="listAccountsUsingLazyLoading" resultMap="accountWithUserMapperLazyLoading">
+        select * from account;
+    </select>
+
+    <select id="getAccountsByUid" parameterType="int" resultType="account">
+        select * from account where uid=#{uid}
     </select>
 </mapper>

@@ -24,4 +24,17 @@ public interface IUserDao {
      * @return
      */
     List<User> listUsersWithRole();
+
+    /**
+     * 根据id获取user
+     * @param id id of user.
+     * @return user.
+     */
+    User getUserById(Integer id);
+
+    /**
+     * 查询所有用户，使用延迟加载，查询用户的账户信息
+     * @return
+     */
+    List<User> listUsersWithAccountUsingLazyLoading();
 }

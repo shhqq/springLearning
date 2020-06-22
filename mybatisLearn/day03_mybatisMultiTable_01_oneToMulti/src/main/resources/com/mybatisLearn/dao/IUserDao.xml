@@ -47,4 +47,21 @@
          left outer join user_role ur on ur.uid = u.id
          left outer join role r on ur.rid = r.id;
     </select>
+
+    <select id="getUserById" resultType="user" parameterType="int">
+        select * from user where id = #{id}
+    </select>
+
+    <!-- 使用懒加载，查询用户的账户信息 -->
+    <resultMap id="UserWithAccountsLazyLoading" type="user">
+        <id property="id" column="id"/>
+        <result property="username" column="username"/>
+        <result property="sex" column="sex"/>
+        <result property="birthday" column="birthday"/>
+        <result property="address" column="address"/>
+        <collection property="accounts" ofType="account" column="id" select="com.mybatisLearn.dao.AccountMapper.getAccountsByUid"/>
+    </resultMap>
+    <select id="listUsersWithAccountUsingLazyLoading" resultMap="UserWithAccountsLazyLoading">
+        select * from user;
+    </select>
 </mapper>
