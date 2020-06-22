@@ -6,6 +6,7 @@
     <!-- configuration里的子标签似乎是有顺序的，typeAliases必须在properties之后-->
     <!-- 数据库信息配置 -->
     <properties resource="jdbc.properties"/>
+
     <!-- 配置别名 -->
     <typeAliases>
         <package name="com.mybatisLearn.domain"/>

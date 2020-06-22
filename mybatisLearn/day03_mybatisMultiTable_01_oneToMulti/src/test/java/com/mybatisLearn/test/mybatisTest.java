@@ -1,6 +1,8 @@
 package com.mybatisLearn.test;
 
+import com.mybatisLearn.dao.AccountMapper;
 import com.mybatisLearn.dao.IUserDao;
+import com.mybatisLearn.domain.Account;
 import com.mybatisLearn.domain.User;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
@@ -12,6 +14,7 @@ import org.junit.Test;
 
 import java.io.InputStream;
 import java.util.List;
+import java.util.function.Consumer;
 
 /**
  * Created by s on 2020/6/19 17:50.
@@ -27,6 +30,7 @@ public class mybatisTest {
     private InputStream in;
     private SqlSession session;
     private IUserDao userDao;
+    private AccountMapper accountMapper;
 
     @Before // 测试方法执行前
     public void init() throws Exception{
@@ -34,7 +38,9 @@ public class mybatisTest {
         SqlSessionFactoryBuilder builder = new SqlSessionFactoryBuilder();
         SqlSessionFactory factory = builder.build(in);
         session = factory.openSession();
+        // 创建代理对象
         userDao = session.getMapper(IUserDao.class);
+        accountMapper = session.getMapper(AccountMapper.class);
     }
 
     @After // 测试方法执行后
@@ -45,7 +51,7 @@ public class mybatisTest {
     }
 
     /**
-     * 测试查询所有方法
+     * 测试查询所有用户方法
      */
     @Test
     public void testFindAll(){
@@ -53,5 +59,27 @@ public class mybatisTest {
         for(User user : users){
             System.out.println(user);
         }
+    }
+
+    /**
+     * 测试查询所有账户方法
+     */
+    @Test
+    public void testListAccounts(){
+        List<Account> accounts = accountMapper.listAccounts();
+//        for(Account account:accounts){
+//            System.out.println(account);
+//        }
+        // 1. 使用lambda表达式
+        accounts.forEach(account -> System.out.println(account));
+        // 2. 使用方法引用
+        accounts.forEach(System.out::println);
+        // 3. 使用匿名内部类，使用消费接口
+        accounts.forEach(new Consumer<Account>() {
+            @Override
+            public void accept(Account account) {
+                System.out.println(account);
+            }
+        });
     }
 }
