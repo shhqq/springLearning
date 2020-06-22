@@ -50,6 +50,30 @@ create table `account`(
 # 导入数据
 insert  into `account`(`id`,`uid`,`money`) values (1,46,1000),(2,45,1000),(3,46,2000);
 
+-- 创建角色表，用于多对多查询案例
+DROP TABLE IF exists `role`;
+create table `role`(
+	`id` int(11) not null comment '编号',
+	`role_name` varchar(30) default null comment '角色名称',
+	`role_desc` varchar(60) default null comment '角色描述',
+	primary key (`id`)
+)engine=InnoDB default charset=utf8;
 
+-- 添加数据
+insert into `role`(`id`, `role_name`, `role_desc`) values (1, '院长', '管理整个学院'), (2, '总裁', '管理整个公司'), (3, '校长', '管理整个学校');
 
+# 创建用户角色表，也就是中间表
+# uid和rid是复合主键，同时也是外键
+drop table if exists `user_role`;
+create table `user_role`(
+	`uid` int(11) not null comment '用户编号',
+	`rid` int (11) not null comment '角色编号',
+	primary key (`uid`, `rid`),
+	key `FK_Reference_10` (`rid`),
+	constraint `FK_Reference_10` foreign key (`rid`) references `role`(`id`),
+	constraint `FK_Reference_9` foreign key (`uid`) references `user` (`id`)
+)engine=InnoDB default charset=utf8;
+
+-- 添加用户角色数据
+insert into `user_role`(`uid`, `rid`) values (41, 1), (45, 1),(41, 2);
 

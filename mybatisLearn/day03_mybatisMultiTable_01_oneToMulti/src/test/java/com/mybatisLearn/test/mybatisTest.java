@@ -52,17 +52,18 @@ public class mybatisTest {
 
     /**
      * 测试查询所有用户方法
+     * 一对多查询，使用外联形式
      */
     @Test
     public void testFindAll(){
         List<User> users = userDao.findAll();
-        for(User user : users){
-            System.out.println(user);
-        }
+        // 还可以使用流进行遍历，或者直接使用forEach()
+        users.stream().forEach(System.out::println);
     }
 
     /**
      * 测试查询所有账户方法
+     * 多对一查询，使用内联形式
      */
     @Test
     public void testListAccounts(){

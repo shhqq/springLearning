@@ -8,7 +8,22 @@
         select * from user
     </sql>
 
-    <select id="findAll" resultType="user">
-        <include refid="defaultSql"></include>
+    <resultMap id="UserWithAccounts" type="user">
+        <id property="id" column="id"/>
+        <result property="username" column="username"/>
+        <result property="sex" column="sex"/>
+        <result property="birthday" column="birthday"/>
+        <result property="address" column="address"/>
+        <!-- 使用collection标签配置accounts集合的映射，使用ofType属性指定集合元素类型 -->
+        <collection property="accounts" ofType="account">
+            <id property="id" column="aid"/>
+            <result property="uid" column="uid"/>
+            <result property="money" column="money"/>
+        </collection>
+
+    </resultMap>
+
+    <select id="findAll" resultMap="UserWithAccounts">
+        select u.*, a.id as aid, a.uid, a.money from user u left outer join account a on a.uid = u.id
     </select>
 </mapper>

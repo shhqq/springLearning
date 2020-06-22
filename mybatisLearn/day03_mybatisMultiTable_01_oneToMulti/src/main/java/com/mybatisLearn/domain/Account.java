@@ -12,6 +12,16 @@ public class Account {
     private Integer id;
     private Integer uid;
     private Double money;
+    // 账户必须在某个用户下，所以添加用户成员变量
+    private User user;
+
+    public User getUser(){
+        return user;
+    }
+
+    public void setUser(User user){
+        this.user = user;
+    }
 
     public Integer getId() {
         return id;
@@ -43,6 +53,7 @@ public class Account {
                 "id=" + id +
                 ", uid=" + uid +
                 ", money=" + money +
+                ", user=" + user +
                 '}';
     }
 }

@@ -5,6 +5,7 @@ package com.mybatisLearn.domain;
  */
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * 用户实体类
@@ -16,6 +17,15 @@ public class User {
     private String sex;
     private Date birthday;
     private String address;
+    private List<Account> accounts;
+
+    public List<Account> getAccounts() {
+        return accounts;
+    }
+
+    public void setAccounts(List<Account> accounts) {
+        this.accounts = accounts;
+    }
 
     public Integer getId() {
         return id;
@@ -65,6 +75,7 @@ public class User {
                 ", sex='" + sex + '\'' +
                 ", birthday=" + birthday +
                 ", address='" + address + '\'' +
+                ", accounts=" + accounts +
                 '}';
     }
 }
