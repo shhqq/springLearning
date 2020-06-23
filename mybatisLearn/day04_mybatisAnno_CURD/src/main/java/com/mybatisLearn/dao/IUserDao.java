@@ -19,6 +19,12 @@ public interface IUserDao {
      * @return all users.
      */
     @Select("select * from user")
+    @Results(id="userMapper", value = {
+            @Result(id=true,property = "username",column = "username"),
+            @Result(property = "sex", column = "sex"),
+            @Result(property = "birthday", column="birthday"),
+            @Result(property="address", column = "address")
+    })
     List<User> listAllUsers();
 
     /**
@@ -49,6 +55,7 @@ public interface IUserDao {
      * @return user
      */
     @Select("select * from user where id=#{id}")
+    @ResultMap("userMapper")    // 引用上面定义的results
     User findById(Integer id);
 
     /**
