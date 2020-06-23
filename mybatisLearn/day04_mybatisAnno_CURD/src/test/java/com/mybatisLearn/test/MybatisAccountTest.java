@@ -75,7 +75,9 @@ public class MybatisAccountTest {
     public void testFindAccountByIdSecondLevelCache(){
         Account account = accountDao.findAccountById(1);
         session.clearCache();
-
+        // 注意： 必须在这里将session关闭，才能实现二级缓存，可能是第一个session不关闭，第二个session不能在二级缓存中访问这个数据
+        // 这里关闭后，destroy中的关闭就要取消，否则会报错。
+        // session.close();
         System.out.println("使用另一个sqlSession");
         IAccountDao accountDao2 = session2.getMapper(IAccountDao.class);
         Account account2 = accountDao2.findAccountById(1);
