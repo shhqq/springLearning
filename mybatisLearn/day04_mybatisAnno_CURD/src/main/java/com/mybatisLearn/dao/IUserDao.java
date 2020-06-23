@@ -6,6 +6,7 @@ package com.mybatisLearn.dao;
 
 import com.mybatisLearn.domain.User;
 import org.apache.ibatis.annotations.*;
+import org.apache.ibatis.mapping.FetchType;
 
 import java.util.List;
 
@@ -20,10 +21,12 @@ public interface IUserDao {
      */
     @Select("select * from user")
     @Results(id="userMapper", value = {
-            @Result(id=true,property = "username",column = "username"),
+            @Result(id=true,property = "id",column = "id"),
+            @Result(property = "username",column = "username"),
             @Result(property = "sex", column = "sex"),
             @Result(property = "birthday", column="birthday"),
-            @Result(property="address", column = "address")
+            @Result(property="address", column = "address"),
+            @Result(property = "accounts", column = "id", many = @Many(select = "com.mybatisLearn.dao.IAccountDao.findAccountsByUid", fetchType = FetchType.LAZY))
     })
     List<User> listAllUsers();
 
@@ -55,7 +58,7 @@ public interface IUserDao {
      * @return user
      */
     @Select("select * from user where id=#{id}")
-    @ResultMap("userMapper")    // 引用上面定义的results
+//    @ResultMap("userMapper")    // 引用上面定义的results
     User findById(Integer id);
 
     /**

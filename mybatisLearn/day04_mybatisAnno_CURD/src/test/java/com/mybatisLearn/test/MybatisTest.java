@@ -48,7 +48,8 @@ public class MybatisTest {
     @Test
     public void testListAllUsers(){
         List<User> users = userDao.listAllUsers();
-        users.forEach(System.out::println);
+        // 延迟加载中，如果不访问关联数据，则不会查询
+//        users.forEach(System.out::println);
     }
 
     /**
