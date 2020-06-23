@@ -6,6 +6,11 @@
 <configuration>
     <!-- 声明外部的jdbc配置文件 -->
     <properties resource="jdbc.properties"/>
+    
+    <!-- 开启二级缓存 -->
+    <settings>
+        <setting name="cacheEnabled" value="true"/>
+    </settings>
 
 <!--    &lt;!&ndash; 为所有实体类配置别名 &ndash;&gt;-->
 <!--    <typeAliases>-->

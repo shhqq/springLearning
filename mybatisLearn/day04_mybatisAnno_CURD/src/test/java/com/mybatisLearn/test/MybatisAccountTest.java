@@ -25,6 +25,7 @@ public class MybatisAccountTest {
     private InputStream in;
     private SqlSession session;
     private IAccountDao accountDao;
+    private SqlSession session2;    // 开启另一个session，测试二级缓存
 
     @Before // 测试方法执行前执行
     public void init() throws Exception{
@@ -32,6 +33,7 @@ public class MybatisAccountTest {
         SqlSessionFactoryBuilder builder = new SqlSessionFactoryBuilder();
         SqlSessionFactory factory = builder.build(in);
         session = factory.openSession();
+        session2 = factory.openSession();
         accountDao = session.getMapper(IAccountDao.class);
     }
 
@@ -50,5 +52,34 @@ public class MybatisAccountTest {
         List<Account> accounts = accountDao.findAll();
         // 延迟加载中，如果不访问关联数据，则不会查询
         accounts.forEach(System.out::println);
+    }
+
+    /**
+     * 测试一级缓存
+     */
+    @Test
+    public void testFindAccountById(){
+        Account account = accountDao.findAccountById(1);
+
+        // 调用session的commit，close，clearCache等会清空一级缓存
+        session.clearCache();
+
+        Account account1 = accountDao.findAccountById(1);
+        System.out.println(account == account1);
+    }
+
+    /**
+     * 测试二级缓存
+     */
+    @Test
+    public void testFindAccountByIdSecondLevelCache(){
+        Account account = accountDao.findAccountById(1);
+        session.clearCache();
+
+        System.out.println("使用另一个sqlSession");
+        IAccountDao accountDao2 = session2.getMapper(IAccountDao.class);
+        Account account2 = accountDao2.findAccountById(1);
+        System.out.println(account == account2);
+        session2.close();
     }
 }

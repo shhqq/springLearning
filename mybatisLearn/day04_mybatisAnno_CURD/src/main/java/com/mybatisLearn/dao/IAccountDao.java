@@ -5,10 +5,7 @@ package com.mybatisLearn.dao;
  */
 
 import com.mybatisLearn.domain.Account;
-import org.apache.ibatis.annotations.One;
-import org.apache.ibatis.annotations.Result;
-import org.apache.ibatis.annotations.Results;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.mapping.FetchType;
 
 import java.util.List;
@@ -16,6 +13,7 @@ import java.util.List;
 /**
  * 账户的持久层接口
  */
+@CacheNamespace(blocking = true)    // 开启二级缓存设置
 public interface IAccountDao {
 
     /**
@@ -33,8 +31,19 @@ public interface IAccountDao {
 
     /**
      * 根据用户id查询账户
+     * @param uid uid of account.
      * @return list of account with uid.
      */
     @Select("select * from account where uid=#{uid}")
     List<Account> findAccountsByUid(Integer uid);
+
+    /**
+     * 根据账户id查询
+     * 用于测试缓存
+     * @param id id of account.
+     * @return account.
+     */
+    @Select("select * from account where id=#{id}")
+    Account findAccountById(Integer id);
+
 }
