@@ -5,7 +5,7 @@ package com.mybatisLearn.dao;
  */
 
 import com.mybatisLearn.domain.User;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -25,17 +25,45 @@ public interface IUserDao {
      * 保存用户
      * @param user user to insert.
      */
+    @Insert("insert into user(username, sex, birthday, address ) values (#{username}, #{sex}, #{birthday}, #{address})")
+    @SelectKey(keyProperty = "id", keyColumn = "id", statement = "select last_insert_id()", resultType = Integer.class, before = false)
     void saveUser(User user);
 
     /**
      * 更新用户
      * @param user user to update.
      */
+    @Update("update user set username=#{username}, sex=#{sex}, birthday=#{birthday}, address=#{address} where id=#{id}")
     void updateUser(User user);
 
     /**
      * 删除用户
      * @param id id of user to delete.
      */
+    @Delete("delete from user where id=#{id}")
     void deleteUser(Integer id);
+
+    /**
+     * 查询一个
+     * @param id id of user.
+     * @return user
+     */
+    @Select("select * from user where id=#{id}")
+    User findById(Integer id);
+
+    /**
+     * 根据名称模糊查询
+     * @param username username
+     * @return list of users.
+     */
+    @Select("select * from user where username like #{username}")
+//    @Select("select * from user where username like '%${value}%'")
+    List<User> findUsersFuzzy(String username);
+
+    /**
+     * 查询总数
+     * @return
+     */
+    @Select("select count(*) from user")
+    int findTotal();
 }

@@ -50,4 +50,65 @@ public class MybatisTest {
         List<User> users = userDao.listAllUsers();
         users.forEach(System.out::println);
     }
+
+    /**
+     * 测试保存用户方法
+     */
+    @Test
+    public void testSave(){
+        User user = new User();
+        user.setUsername("insert item");
+        user.setSex("男");
+
+        userDao.saveUser(user);
+        System.out.println(user);
+    }
+
+    /**
+     * 测试更新用户
+     */
+    @Test
+    public void testUpdate(){
+        User user = new User();
+        user.setId(49);
+        user.setUsername("update item");
+        user.setAddress("nan j");
+
+        userDao.updateUser(user);
+    }
+
+    /**
+     * 测试删除用户
+     */
+    @Test
+    public void testDelete(){
+        userDao.deleteUser(49);
+    }
+
+    /**
+     * 测试查询一个
+     */
+    @Test
+    public void testFindById(){
+        User user = userDao.findById(48);
+        System.out.println(user);
+    }
+
+    /**
+     * 测试模糊查询
+     */
+    @Test
+    public void testFindUsersFuzzy(){
+        List<User> users = userDao.findUsersFuzzy("%王%");
+        users.forEach(System.out::println);
+    }
+
+    /**
+     * 测试查询总数
+     */
+    @Test
+    public void testFindTotal(){
+        int total = userDao.findTotal();
+        System.out.println(total);
+    }
 }
