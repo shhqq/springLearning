@@ -9,8 +9,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 表现层的类
@@ -38,8 +41,14 @@ public class HelloController {
      * @return
      */
     @RequestMapping(path = "/userHandler/saveUser")
-    public String saveUser(User user){
+    public String saveUser(User user, HttpServletRequest request){
         System.out.println(user);
+
+        Map<String, Object> params = request.getParameterMap();
+        System.out.println("keys: " + params.keySet());
+        for(Map.Entry<String, Object> e: params.entrySet()){
+            System.out.println(e.getKey() + " : " + e.getValue());
+        }
         return "success";
     }
 
@@ -54,6 +63,25 @@ public class HelloController {
 //    ,这样也不行，因为jsp认为返回的是一个对象，其中包含一个users的list，而不是直接返回这个list
     public String saveUsers(ArrayList<User> users){     // 改为ArrayList不会报错，但也不能赋值成功
         System.out.println(users);
+        return "success";
+    }
+
+    /**
+     * 获取Servlet原生API
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping("/userHandler/getServletAPI")
+    public String getServletAPI(HttpServletRequest request, HttpServletResponse response){
+        System.out.println(request);
+        System.out.println(request.getSession());
+        Map<String, Object> params = request.getParameterMap();
+        for(Map.Entry<String, Object> e: params.entrySet()){
+            System.out.println(e.getKey() + e.getValue());
+        }
+        System.out.println(request.getParameterMap());
+        System.out.println(response);
         return "success";
     }
 }

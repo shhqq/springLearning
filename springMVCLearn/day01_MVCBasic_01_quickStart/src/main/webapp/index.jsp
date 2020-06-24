@@ -27,5 +27,14 @@
     <label>birthday</label><input type="text" name="users[0].birthday"/><br/>
     <input type="submit" name="submit">
 </form>
+
+<%--获取ServletAPI--%>
+<h3>还是尝试传list，看一下请求参数是什么样的</h3>
+<form action="userHandler/getServletAPI" method="post">
+    <label>username</label><input type="text" name="users[0].name"><br/>
+    <label>age</label><input type="text" name="users[0].age"><br/>
+    <label>birthday</label><input type="text" name="users[0].birthday"/><br/>
+    <input type="submit" name="submit">
+</form>
 </body>
 </html>
