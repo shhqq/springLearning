@@ -20,6 +20,7 @@
     <input type="submit" name="submit">
 </form>
 
+<%--尝试直接传list，并不可行--%>
 <form action="userHandler/saveUsers" method="post">
     <label>username</label><input type="text" name="users[0].name"><br/>
     <label>age</label><input type="text" name="users[0].age"><br/>

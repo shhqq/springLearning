@@ -22,7 +22,16 @@
         <property name="suffix" value=".jsp"/>
     </bean>
 
+    <!-- 配置参数类型转换器，并且需要在spring对注解mvc中添加conversion-service -->
+    <bean id="conversionServiceFactoryBean" class="org.springframework.context.support.ConversionServiceFactoryBean">
+        <property name="converters">
+            <set>
+                <bean class="com.MVCLearn.utils.SpringToDateConverter"/>
+            </set>
+        </property>
+    </bean>
+
     <!-- 开启spring对注解mvc的支持 -->
-    <mvc:annotation-driven/>
+    <mvc:annotation-driven conversion-service="conversionServiceFactoryBean"/>
 
 </beans>
