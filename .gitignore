@@ -77,6 +77,10 @@ hs_err_pid*
 /mybatisLearn/*/.idea/
 /mybatisLearn/*/target/
 
+# 忽略springMVC下的所有项目中的.idea和target
+/springMVCLearn/*/.idea/
+/springMVCLearn/*/target/
+
 # macOS
 .DS_Store
 
