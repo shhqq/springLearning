@@ -9,6 +9,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * 表现层的类
  * 如果使用注解，可以使用Controller
@@ -40,4 +43,17 @@ public class HelloController {
         return "success";
     }
 
+    /**
+     * 测试参数绑定，参数为JavaBean类型，其中包含其他实体类作为成员变量，还包含集合类型
+     * 如何直接传入一个List？
+     * @return
+     */
+    @RequestMapping(path = "/userHandler/saveUsers")
+//    public String saveUsers(List<User> users){        // 会提示List接口没有构造函数
+//    public String saveUsers(@RequestParam(name = "users") ArrayList<User> users){     // 改为ArrayList不会报错，但也不能赋值成功
+//    ,这样也不行，因为jsp认为返回的是一个对象，其中包含一个users的list，而不是直接返回这个list
+    public String saveUsers(ArrayList<User> users){     // 改为ArrayList不会报错，但也不能赋值成功
+        System.out.println(users);
+        return "success";
+    }
 }

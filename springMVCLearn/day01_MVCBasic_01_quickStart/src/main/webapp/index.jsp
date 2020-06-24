@@ -19,5 +19,12 @@
     <label>map[0]-money</label><input type="text" name="accountMap['one'].money"><br/>
     <input type="submit" name="submit">
 </form>
+
+<form action="userHandler/saveUsers" method="post">
+    <label>username</label><input type="text" name="users[0].name"><br/>
+    <label>age</label><input type="text" name="users[0].age"><br/>
+    <label>birthday</label><input type="text" name="users[0].birthday"/><br/>
+    <input type="submit" name="submit">
+</form>
 </body>
 </html>
