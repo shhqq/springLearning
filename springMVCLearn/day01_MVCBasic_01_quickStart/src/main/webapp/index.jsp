@@ -17,7 +17,7 @@
     <label>account[0]-money</label><input type="text" name="accounts[0].money"><br/>
     <label>map[0]-id</label><input type="text" name="accountMap['one'].id"><br/>
     <label>map[0]-money</label><input type="text" name="accountMap['one'].money"><br/>
-    <input type="submit" name="submit">
+    <input type="submit" value="submit">
 </form>
 
 <%--尝试直接传list，并不可行--%>
@@ -25,7 +25,7 @@
     <label>username</label><input type="text" name="users[0].name"><br/>
     <label>age</label><input type="text" name="users[0].age"><br/>
     <label>birthday</label><input type="text" name="users[0].birthday"/><br/>
-    <input type="submit" name="submit">
+    <input type="submit" value="submit">
 </form>
 
 <%--获取ServletAPI--%>
@@ -34,7 +34,7 @@
     <label>username</label><input type="text" name="users[0].name"><br/>
     <label>age</label><input type="text" name="users[0].age"><br/>
     <label>birthday</label><input type="text" name="users[0].birthday"/><br/>
-    <input type="submit" name="submit">
+    <input type="submit" value="submit">
 </form>
 </body>
 </html>
