@@ -13,5 +13,7 @@
 <h3>success jumped</h3>
 ${Jack.username}<br>
 ${Jack.age}<br>
+${user.username}<br>
+${user.age}<br>
 </body>
 </html>
