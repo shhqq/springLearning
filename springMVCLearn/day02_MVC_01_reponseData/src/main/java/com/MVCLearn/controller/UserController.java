@@ -7,7 +7,9 @@ package com.MVCLearn.controller;
 import com.MVCLearn.domain.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -104,5 +106,22 @@ public class UserController {
         // 注意redirect不能重定向到WEB-INF下的页面
         // 使用redirect关键字不需要添加项目名称
         return("redirect:/index.jsp");
+    }
+
+
+    /**
+     * 控制器响应json数据
+     * 配置jackson坐标后，可以将json数据与JavaBean自动对应
+     * @param body 使用RequestBody注解获取的请求体
+     * @return 返回响应数据
+     */
+    @RequestMapping("testAjax")
+    @ResponseBody // 该注解表示该方法的返回值直接写回到http响应中，而不是存入Model或解析为视图名。
+    public User testAjax(@RequestBody User body){
+        System.out.println("testAjax method executed.");
+        System.out.println(body);
+
+        // 将User对象返回给前端
+        return body;
     }
 }
