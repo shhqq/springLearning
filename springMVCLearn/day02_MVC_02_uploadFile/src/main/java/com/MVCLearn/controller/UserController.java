@@ -6,9 +6,12 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -65,6 +68,30 @@ public class UserController {
             }
         }
 
+        return "success";
+    }
+
+    /**
+     * 使用springMVC实现上传文件--单服务器上传文件
+     * 添加bean.xml中的multipartFile后，传统方式将无法执行
+     * @param request HttpServletRequest servlet请求
+     * @param uploadFile MultipartFile 上传文件封装的对象
+     * @return 跳转路径
+     * @throws IOException
+     */
+    @RequestMapping("testUploadFile2")
+    public String testUploadFile2(HttpServletRequest request, @RequestParam("fileParam")MultipartFile uploadFile) throws IOException {
+        // 创建目录，保存文件
+        String filePath = request.getSession().getServletContext().getRealPath("/uploads/");
+        File file = new File(filePath);
+        if(!file.exists()){
+            file.mkdir();
+        }
+
+        // 获取文件名称
+        String fileName = uploadFile.getOriginalFilename();
+        // 上传文件
+        uploadFile.transferTo(new File(filePath, fileName));
         return "success";
     }
 }
