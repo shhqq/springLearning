@@ -13,11 +13,11 @@ public class UserController {
 
     @RequestMapping("handler")
     public String handler() throws SysException {
-        System.out.println("");
+        System.out.println("Handler method executed");
         int a = 1;
-        if(a == 1){
-            throw new SysException("error: a == 1");    // 此处抛出一个异常
-        }
+//        if(a == 1){
+//            throw new SysException("error: a == 1");    // 此处抛出一个异常
+//        }
         return "success";
     }
 }

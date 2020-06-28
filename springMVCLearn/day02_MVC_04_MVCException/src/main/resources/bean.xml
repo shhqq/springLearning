@@ -19,6 +19,14 @@
 
     <!-- 配置异常处理器 -->
     <bean id="sysExceptionResolver" class="com.MVCLearn.utils.SysExceptionResolver"/>
+    
+    <!-- 配置拦截器 -->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <bean id="myInterceptor1" class="com.MVCLearn.interceptor.MyInterceptor1"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
 
     <mvc:annotation-driven/>
 </beans>
