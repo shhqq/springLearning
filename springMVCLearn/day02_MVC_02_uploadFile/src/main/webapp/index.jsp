@@ -30,5 +30,12 @@
     <label>choose file</label><input type="file" name="fileParam"/><br/>
     <input type="submit" value="upload file">
 </form>
+
+<br>
+<h3>表单用于上传文件--使用springMVC进行跨服务器上传</h3>
+<form action="user/testUploadFile3" method="post" enctype="multipart/form-data">
+    <label>choose file</label><input type="file" name="fileParam"/><br/>
+    <input type="submit" value="upload file">
+</form>
 </body>
 </html>

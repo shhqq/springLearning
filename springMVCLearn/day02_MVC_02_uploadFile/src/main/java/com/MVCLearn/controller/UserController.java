@@ -1,5 +1,7 @@
 package com.MVCLearn.controller;
 
+import com.sun.jersey.api.client.Client;
+import com.sun.jersey.api.client.WebResource;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
@@ -94,4 +96,28 @@ public class UserController {
         uploadFile.transferTo(new File(filePath, fileName));
         return "success";
     }
+
+    /**
+     * 使用springMVC进行跨服务器上传文件
+     * @param uploadFile 上传文件封装的对象MultipartFile
+     * @return 跳转路径
+     */
+    @RequestMapping("testUploadFile3")
+    public String testUploadFile3(@RequestParam("fileParam") MultipartFile uploadFile) throws IOException {
+        System.out.println("springMVC 进行跨服务器上传文件");
+
+        // 保存路径，保存到专门的文件服务器中
+        String path = "http://localhost:9090/fileServer/uploads/";
+        // 获取上传文件的名称
+        String name = uploadFile.getOriginalFilename();
+        // 创建客户端对象
+        Client client = Client.create();
+        // 和图片服务器进行连接
+        WebResource webResource = client.resource(path+name);
+        // 完成文件上传
+        webResource.put(uploadFile.getBytes());
+
+        return "success";
+    }
+
 }
