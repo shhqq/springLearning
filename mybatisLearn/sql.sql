@@ -77,3 +77,18 @@ create table `user_role`(
 -- 添加用户角色数据
 insert into `user_role`(`uid`, `rid`) values (41, 1), (45, 1),(41, 2);
 
+
+# springMVC视频最后整合SSM
+
+-- 创建数据库（文件夹）
+create database ssmTest default charset utf8;
+-- 创建表
+CREATE TABLE account(
+	ID INT PRIMARY KEY AUTO_INCREMENT,
+	NAME VARCHAR(20),
+	MONEY DOUBLE
+);
+
+-- 插入数据
+insert into account(name, money) values("Jack", 1000), ("Michel", 1500), ("Mike", 2000);
+
