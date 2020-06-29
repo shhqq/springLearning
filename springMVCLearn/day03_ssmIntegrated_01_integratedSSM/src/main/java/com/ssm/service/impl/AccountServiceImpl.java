@@ -4,8 +4,10 @@ package com.ssm.service.impl;
  * Created by s on 2020/6/29 09:25.
  */
 
+import com.ssm.dao.IAccountDao;
 import com.ssm.domain.Account;
 import com.ssm.service.IAccountService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,6 +17,13 @@ import java.util.List;
  */
 @Service(value = "accountService")
 public class AccountServiceImpl implements IAccountService {
+
+    /**
+     * 添加持久层接口，使用自动按类型注入
+     */
+    @Autowired
+    private IAccountDao accountDao;
+
     /**
      * 查询所有账户
      *
@@ -23,7 +32,7 @@ public class AccountServiceImpl implements IAccountService {
     @Override
     public List<Account> findAll() {
         System.out.println("业务层，查询所有账户");
-        return null;
+        return accountDao.findAll();
     }
 
     /**
@@ -34,5 +43,6 @@ public class AccountServiceImpl implements IAccountService {
     @Override
     public void saveAccount(Account account) {
         System.out.println("业务层，保存账户");
+        accountDao.saveAccount(account);
     }
 }
