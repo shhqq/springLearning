@@ -91,4 +91,3 @@ CREATE TABLE account(
 
 -- 插入数据
 insert into account(name, money) values("Jack", 1000), ("Michel", 1500), ("Mike", 2000);
-
