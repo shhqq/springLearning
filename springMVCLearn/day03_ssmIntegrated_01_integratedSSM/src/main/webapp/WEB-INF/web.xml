@@ -5,6 +5,12 @@
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
 
+  <!-- 但是spring的配置文件不在WEB-INF目录下，所有需要指定路径 -->
+  <context-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>classpath:applicationContext.xml</param-value>
+  </context-param>
+
   <!-- 配置中文编码 -->
   <filter>
     <filter-name>characterEncodingFilter</filter-name>
@@ -22,6 +28,13 @@
     <filter-name>characterEncodingFilter</filter-name>
     <url-pattern>/*</url-pattern>
   </filter-mapping>
+
+  <!-- 配置spring的监听器，默认只加载WEB-INF目录下的配置文件 -->
+  <listener>
+    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
+
+
 
   <!-- 配置前端控制器 -->
   <servlet>
