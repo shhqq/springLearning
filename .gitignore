@@ -81,6 +81,10 @@ hs_err_pid*
 /springMVCLearn/*/.idea/
 /springMVCLearn/*/target/
 
+# 忽略springBootLearn下的所有项目中的.idea和target
+/springBootLearn/*/.idea/
+/springBootLearn/*/target/
+
 # macOS
 .DS_Store
 
