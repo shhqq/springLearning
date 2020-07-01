@@ -27,10 +27,29 @@ class MainclassApplicationTests {
 
     /**
      * 测试配置spring的配置文件bean.xml
+     * 有两种加载方式，
+     *          一种是主程序类中添加@ImportResource注解，测试类中使用自动注入
+     *          一种是使用传统的加载配置文件的方式
+     *
      */
     @Test
     void testBeanXml(){
         boolean b = ac.containsBean("BeanPerson");
+        if(b) {
+            System.out.println(ac.getBean("BeanPerson"));
+        }
+        System.out.println(b);
+    }
+
+    /**
+     * 测试使用配置类MyAppConfig.java的方式注入数据
+     */
+    @Test
+    void testBeanAnnotation(){
+        boolean b = ac.containsBean("person");
+        if(b){
+            System.out.println(ac.getBean("person"));
+        }
         System.out.println(b);
     }
 }
