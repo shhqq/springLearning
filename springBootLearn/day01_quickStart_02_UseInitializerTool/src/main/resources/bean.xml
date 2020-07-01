@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="dog" class="com.springboot.domain.Dog">
+        <property name="name" value="BeanDog"/>
+        <property name="age" value="2"/>
+    </bean>
+
+    <bean id="maps" class="java.util.HashMap">
+
+    </bean>
+    <bean id="BeanPerson" class="com.springboot.domain.Person">
+        <property name="lastName" value="BeanName"/>
+        <property name="age" value="12"/>
+        <property name="boss" value="true"/>
+        <property name="birthday" value="2012/12/23"/>
+        <!-- 复合类型注入数据 -->
+        <property name="maps">
+            <props>
+                <prop key="k1">v1</prop>
+                <prop key="k2">23</prop>
+            </props>
+        </property>
+        <property name="lists">
+            <list>
+               <value>23</value>
+                <value>44</value>
+            </list>
+        </property>
+        <property name="dog" ref="dog"/>
+    </bean>
+</beans>
