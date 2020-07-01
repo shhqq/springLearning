@@ -10,3 +10,21 @@
 #  dog:
 #    name: wangcai
 #    age: 4
+
+server:
+  port: 8080
+spring:
+  profiles:
+    active: dev
+
+---
+server:
+  port: 8081
+spring:
+  profiles: dev
+
+---
+server:
+  port: 8083
+spring:
+  profiles: prod
