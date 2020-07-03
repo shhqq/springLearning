@@ -8,5 +8,58 @@
     <h1>成功！</h1>
     <!--  th:text 将div里面的文本内容设置为 -->
     <div th:text="${hello}">success jump</div>
+
+    <h1>thymeleaf 语法</h1>
+    <h3>语法1：th:text是将标签的内容替换为指定值</h3>
+    <div th:text="'replace with this'">original message</div><br/>
+    <div th:text="${user.name}">user</div><br/>
+
+<!--    如果使用text，不会转义字符，按原样输出-->
+    <div th:text="'<h3>hhh<h3>'">original message</div><br/>
+<!--    使用utext，则会识别html标签，显示hhh为h3样式-->
+    <div th:utext="'<h3>hhh<h3>'">original message</div><br/>
+
+    <h3>语法2：th:是将标签的任意属性替换为指定值</h3>
+<!--    可以通过查看网页源代码，查看替换结果-->
+    <div th:id="'new id'" id="old id">original message</div>
+
+    <h3>语法3：使用th:object自定义变量，使用*{}引用上级的对象</h3>
+    <div th:object="${user}">
+        <div th:text="*{name}"></div><br/>
+        <div th:text="*{age}"></div><br/>
+        <div th:text="*{friend.name}"></div><br/>
+    </div>
+
+    <h3>语法4：方法调用</h3>
+    <div th:object="${user}">
+        <div th:text="*{name.split('a')[0]}"></div><br/>
+        <div th:text="*{name.split('a')[1]}"></div><br/>
+    </div>
+
+    <h3>语法5：使用内置对象，#{}</h3>
+    <div th:text="#{request}"></div>
+<!--    如#dates是处理java.util.Date的工具对象，里面有一些方法-->
+    <div th:text="${#dates.format(today, 'yyyy/MM/dd')}">2020-07-03</div>
+
+    <h3>语法6：字面量，包括字符串，数字（可做运算），boolean</h3>
+    <div th:text="'this is a string'">string</div><br/>
+    <div th:text="23*2">22</div><br/>
+    <div th:if="false">this is true</div><br/>  <!-- false时 不会显示该标签-->
+
+    <h3>语法7：字符串拼接，可以使用+，或者||，使用||时，不需要使用''来表示字面量</h3>
+    <!-- 这里报错不用管 -->
+    <div th:text="|user's name is ${user.name}|">string</div><br/>
+
+    <h3>语法8：运算符</h3>
+    <div th:text="${user.age} + 3">11</div>
+    <!-- 由于<>是html的标签，所以要用别名替代 好像用着也没事 -->
+    <div th:text="${user.age} < 30">11</div>
+    <div th:text="${user.name} eq 'Jack'">11</div>
+    <div th:text="${user.name} == 'Jack'?'true': 'false'">11</div>
+
+    <h3>基本的语法，更多请参考：https://juejin.im/post/5c36dd5051882555287ff77f</h3>
+<br/>
+<br/>
+<br/>
 </body>
 </html>
