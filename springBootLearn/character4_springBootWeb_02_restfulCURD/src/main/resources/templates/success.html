@@ -1,0 +1,24 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Success</title>
+</head>
+<body>
+    <h1>成功！</h1>
+
+<!--    如果使用text，不会转义字符，按原样输出-->
+    <div th:text="'<h3>hhh<h3>'">original message</div><br/>
+<!--    使用utext，则会识别html标签，显示hhh为h3样式-->
+    <div th:utext="'<h3>hhh<h3>'">original message</div><br/>
+
+    <h3>语法2：th:是将标签的任意属性替换为指定值</h3>
+<!--    可以通过查看网页源代码，查看替换结果-->
+    <div th:id="'new id'" id="old id">original message</div>
+
+    <h3>基本的语法，更多请参考：https://juejin.im/post/5c36dd5051882555287ff77f</h3>
+<br/>
+<br/>
+<br/>
+</body>
+</html>
